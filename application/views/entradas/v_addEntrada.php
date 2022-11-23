@@ -70,11 +70,11 @@
 								<div class="col-md-6" style="padding: 30px;">
 									
 								<label for="">&nbsp;</label>
-									<!-- <div class="btn btn-rounded btn-success btn-file">
+									<div class="btn btn-rounded btn-success btn-file">
 										<i class="fa fa-paperclip"></i> Respaldo <i id="cargando" class=""> </i>
 										<input type="file" name="doc_respaldo" id="doc_respaldo" required>
 										<input type="hidden" id="nombre_archivo" name="nombre_archivo" >
-									</div> -->
+									</div>
 								</div>						
 						</div>
             <hr>
@@ -142,116 +142,14 @@
 
 		
 
-      /*  $('#add_Nentrada')
-        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
-        .on('change', 'select.required', validator.checkField)
-        .on('keypress', 'input[required][pattern]', validator.keypress); */
-
-
-      /* $('#add_Nentrada').submit(function(e) {
-        e.preventDefault();
-        var submit = true;
-        // evaluate the form using generic validaing
-        if (!validator.checkAll($(this))) {
-
-          submit = false;
-          $('#mensaje_error').show().fadeIn().delay(5000).fadeOut('slow');
-           console.log("submit --->"+submit);
-        }
-
-        if (submit){
-          console.log("submit ->"+submit);
-         // this.submit();
-          enviardatos();
-        }
-
-        return false;
-      }); */
-
- //subir adjunto
-
-    $('.btn-file').on("change", function(evt){
-			evt.preventDefault();
-      	var base_url    = '<?php echo base_url() ?>adj_entrada';
-				
-        // declaro la variable formData e instancio el objeto nativo de javascript new FormData
-        var formData = new FormData(document.getElementById("add_Nentrada"));
-       // iniciar el ajax
-        $.ajax({
-            url: base_url ,
-            // el metodo para enviar los datos es POST
-            type: "POST",
-            // colocamos la variable formData para el envio de la imagen
-            data: formData,
-            contentType: false,
-            processData: false,
-            beforeSend: function(data)
-            {
-
-             $('#cargando').html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>');
-            },
-            success: function(data)
-            {
-               let objJson = JSON.parse(data);
-               console.log(objJson);
-               $('.btn-file').addClass('btn btn-info');
-               $('#nombre_archivo').val(objJson.imagen); //agrego el nombre del archivo subido
-               $('#cargando').fadeOut("fast",function(){
-               $('#cargando').html('<i class="fa fa-check"> </i>');
-                });
-               $('#cargando').fadeIn("slow");
-            }
-        });
-
-      });
-
 
 
 
      });//fin onready
 
-     function enviardatos(){
-          var url = '<?php echo base_url() ?>insert_entrada';
-          var data = $('#add_Nentrada').serialize();
-          $.ajax({
-                    type: 'ajax',
-                    method: 'post',
-                    url: url,
-                    data: data,
-                    dataType: 'json',
-                    beforeSend: function() {
-                        console.log("Before Send",data);
-                      }
-                 })
-                  .done(function(){
-                    console.log("Done",data);
-                    sweetalertclick();
+   
 
-                  })
-                  .fail(function(){
-                     sweetalertclickerror();
-                  })
-                  .always(function(){
-										console.log("always",data);
-
-                  });
-        }
-
-				function sweetalert_proceso() {
-					$('#mensaje_error').html("Procesando");
-					$('#mensaje_error').show().fadeIn().delay(5000).fadeOut('slow')
-				}
-
-				function sweetalertclick() {
-					$('#mensaje_error').removeClass('alert-warning').addClass('alert-success')
-					.show().fadeIn().delay(5000).fadeOut('slow')
-					.html("<i class='icon fa fa-thumbs-up'></i>Datos Guardados");
-
-				}
-				function sweetalertclickerror(){
-					$('#mensaje_error').html("Ha ocurrido un error");
-					$('#mensaje_error').show().fadeIn().delay(5000).fadeOut('slow')
-				}
+				
 
 
 

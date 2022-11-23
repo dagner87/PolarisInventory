@@ -11,9 +11,9 @@ class Entrada_model extends CI_Model {
 
 	}
 
-   public function get_entradaes()
+   public function getAll()
 	{
-	 $resultados = $this->db->get("entrada");	
+	 $resultados = $this->db->get("entrada_productos");	
      return $resultados->result();
 	}
 

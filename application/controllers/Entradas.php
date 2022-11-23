@@ -38,9 +38,21 @@ class Entradas extends CI_Controller {
 	   $this->load->view("layout/footer");
     }  
 
+
+    public function getEntradas()
+	{
+	   $data['titulo']    = 'Lista Entradas';
+	   $data['crud']      = 'entradas';
+		  
+	   $this->load->view("layout/head",$data);
+	   $this->load->view("layout/menu");
+	   $this->load->view("entradas/v_lista_entradas",$data);
+	   $this->load->view("layout/footer");
+    }  
+
 	function load_entradas()
 	{
-	    $result = $this->entradas_model->get_entradass_jef();
+	    $result = $this->entrada_model->getAll();			
 	    $count = 0;
 	    $output = '';
 	    if(!empty($result))
@@ -48,11 +60,15 @@ class Entradas extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->descripcion.'</td>';
-	        $output .= '<td>'.$row->nombre.' '.$row->apellidos.'</td>';
-	        $output .= ' <td class="text-nowrap">
-	                        <a href="javascript:void(0)" class="edit-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Editar"> 
-	                        <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+	        $output .= '<td>'.$row->fecha_entrada.'</td>';
+	        $output .= '<td>'.$row->id_producto.' </td>';
+	        $output .= '<td>'.$row->cantidad.' </td>';
+	        $output .= '<td>'.$row->precios_costo.' </td>';
+	        $output .= '<td> 
+					<button data="'.$row->doc_respaldo.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
+					
+					 </td>';
+	        $output .= ' <td class="text-nowrap">	                       
 	                        <a href="javascript:void(0)" class="eliminar-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Eliminar"> 
 	                        <i class="fa fa-close text-danger"></i> </a>
                         </td>';
@@ -67,20 +83,22 @@ class Entradas extends CI_Controller {
 
 	public function adjunto_entrada()
 	{
-			$config['upload_path']   = 'assets/uploads/respaldos';
+			$config['upload_path']   = 'assets/respaldos';
 			$config['allowed_types'] = 'pdf|jpg|png|docx';
 			$config['max_size']      = 4048;
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('doc_respaldo')) {
-					#Aquí me refiero a "foto", el nombre que pusimos en FormData
-					$msg['error'] = array('error' => $this->upload->display_errors());
-					echo json_encode($error);
-			} else {
-					$datos_img     = array('upload_data' => $this->upload->data());
-					$msg['imagen'] = $datos_img['upload_data']['file_name'];
-
-			}
+				#Aquí me refiero a "foto", el nombre que pusimos en FormData
+				$msg['success']= false;
+				$msg['error']= $this->upload->display_errors();
 			echo json_encode($msg);
+
+		} else {
+				$datos_img     = array('upload_data' => $this->upload->data());
+				$msg['imagen'] = $datos_img['upload_data']['file_name'];
+
+		}
+		echo json_encode($msg);
 
 	}
 

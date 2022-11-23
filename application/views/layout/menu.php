@@ -30,6 +30,7 @@
 						<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">Inventario</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?= base_url() ?>add_entrada">Entradas</a></li>
+                                <li><a href="<?= base_url() ?>lista_entrada">Lista entradas</a></li>
                                 <li><a href="<?= base_url() ?>ventas">Ventas</a></li>
 								<li><a href="<?= base_url() ?>gastos">Gastos</a></li>                              
                             </ul>

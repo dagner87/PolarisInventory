@@ -59,6 +59,10 @@ $route['get_gast']        = 'gasto/getdatos';
 $route['add_entrada']    = 'entradas/add';
 $route['adj_entrada']    = 'entradas/adjunto_entrada';
 $route['insert_entrada'] = 'entradas/insert_prueba';
+$route['lista_entrada']  = 'entradas/getEntradas';
+$route['get_entradas']   = 'entradas/load_entradas';
+$route['delete_entrada'] = 'entradas/delete';
+
 
 
 
