@@ -78,7 +78,7 @@ $('#add_form').submit(function(e) {
 							hideAfter: 3500,
 							stack: 6
 						});
-					 refrescar_tbl(); 
+					 ocultarErrores(); 
 					} else {
 					   $("#msg-error").show();
 					   $("#list_errorsA").html(data.validacion);
@@ -97,8 +97,6 @@ $('#add_form').submit(function(e) {
 
 $('.btn-file').on("change", function(evt){
 	evt.preventDefault();
-  //var base_url    = '<?php echo base_url() ?>adj_entrada';
-		
 // declaro la variable formData e instancio el objeto nativo de javascript new FormData
 var formData = new FormData(document.getElementById("add_form"));
 // iniciar el ajax
@@ -127,20 +125,17 @@ $.ajax({
 		});
 	   $('#cargando').fadeIn("slow");
 	},
-	error: function(err) { // if error occured
-		
-		
+	error: function(err) { // if error occured			
 		$('#msg-error').show();
+		$("#list_errorsA").html("El archivo que intenta subir no está permitido");//err.responseText.error
 		$('.btn-file').addClass('btn btn-danger');
 		$('#cargando').html('<i class="fa fa-times-rectangle"> </i>');
-		$("#list_errorsA").html(err.responseText.error);//err.responseText.error
 		
 
        
     },
     complete: function() {
-        $('.btn-file').addClass('btn btn-success');
-		//$("#msg-error").hide();
+        $('.btn-file').addClass('btn btn-success');		
     },
 });
 
@@ -161,7 +156,29 @@ function sweetalertclickerror(){
 	$('#mensaje_error').html("Ha ocurrido un error");
 	$('#mensaje_error').show().fadeIn().delay(5000).fadeOut('slow')
 } 
-   /*-----Eliminar -----*/ 
+
+$(document).on("click",".btn-inverse",function(){
+	console.log('limpiar formulario');
+	ocultarErrores();      
+  });
+
+
+  function ocultarErrores(){
+
+	$("#msg-error").hide();
+	$("#list_errorsA").empty();
+	$('#tituloLabel').text(''); 
+	$("#add_form")[0].reset(); 	
+  }
+
+
+  $(document).on("click",".btn-remove", function(){
+	$(this).closest("tr").remove();
+	//sumar();
+});
+
+
+/*-----Eliminar -----*/ 
 
    $(document).on("click",".eliminar-row-btn", function(){
 	var id = $(this).attr('data');

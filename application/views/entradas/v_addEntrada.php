@@ -72,7 +72,7 @@
 								<label for="">&nbsp;</label>
 									<div class="btn btn-rounded btn-success btn-file">
 										<i class="fa fa-paperclip"></i> Respaldo <i id="cargando" class=""> </i>
-										<input type="file" name="doc_respaldo" id="doc_respaldo" required>
+										<input type="file" name="doc_respaldo" id="doc_respaldo" >
 										<input type="hidden" id="nombre_archivo" name="nombre_archivo" >
 									</div>
 								</div>						
@@ -129,7 +129,7 @@
 
             html += "<td><input type='text' name='precios_costo[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
 
-            html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-remove'></span></button></td>";
+            html += "<td><button type='button' class='btn btn-danger btn-remove'><span class='fa fa-remove'></span></button></td>";
 
             html += "</tr>";
             $("#tb-entradas tbody").append(html);
@@ -139,11 +139,6 @@
             alert("seleccione un producto...");
         }
     });
-
-		
-
-
-
 
      });//fin onready
 

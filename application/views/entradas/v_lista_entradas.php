@@ -26,11 +26,12 @@
 
 
 
-
+	<script src="<?php echo base_url();?>plantilla/assets/custon_function/eliminar_registros.js"></script>
 
   <script>
     $(document).ready(function() {
-       load_tabla();
+		
+			load_tabla();	
        
     });
 

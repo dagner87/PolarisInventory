@@ -69,7 +69,7 @@ class Entradas extends CI_Controller {
 					
 					 </td>';
 	        $output .= ' <td class="text-nowrap">	                       
-	                        <a href="javascript:void(0)" class="eliminar-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Eliminar"> 
+	                        <a href="javascript:void(0)"  class="eliminar-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Eliminar"> 
 	                        <i class="fa fa-close text-danger"></i> </a>
                         </td>';
 			$output .= '</tr>';
@@ -101,37 +101,6 @@ class Entradas extends CI_Controller {
 		echo json_encode($msg);
 
 	}
-
-
-
-	
-	
-	 public function insert()
-    {
-      if ($this->input->is_ajax_request()) 
-        {
-
-          $this->form_validation->set_rules('descripcion', 'Descripcion', 'required');
-           if ($this->form_validation->run() === TRUE) 
-            {
-	            $param['descripcion']    = $this->input->post('descripcion');
-			        $result                  = $this->entradas_model->insert_are($param);
-		          $msg['comprobador']      = FALSE;
-
-		        if($result)
-		             {
-		               $msg['comprobador'] = TRUE;
-		             }
-		         echo json_encode($msg);
-
-		     }else{
-                   $msg['validacion'] =  validation_errors('<li>','</li>');
-                   echo json_encode($msg);
-                  }
-        }              
-    }
-
-
   
 
     /* Editar */
@@ -173,9 +142,9 @@ class Entradas extends CI_Controller {
         echo json_encode($result);      
     }
 
-    /* Eliminar */
+    /* insertar */
 
-    public function insert_prueba()
+    public function insert()
 	{
 
 		if ($this->input->is_ajax_request()) 
@@ -183,7 +152,7 @@ class Entradas extends CI_Controller {
 
 					$this->form_validation->set_rules('fecha_entrada', 'fecha', 'required');
 					$this->form_validation->set_rules('proveedor', 'Proveedor', 'required');
-					//$this->form_validation->set_rules('producto_entrada', 'Productos', 'required');
+					$this->form_validation->set_rules('nombre_archivo', 'Doc Respaldo', 'required');
 					$this->form_validation->set_rules('cantidades[]', 'Cantidades', 'required');
 					$this->form_validation->set_rules('precios_costo[]', 'Precio costo', 'required');
 
@@ -192,9 +161,10 @@ class Entradas extends CI_Controller {
 							$msg['comprobador']      = FALSE;
 							$param['fecha']          = $this->input->post('fecha_entrada');
 							$param['cantidades']     = $this->input->post('cantidades');
-							$param['productos']       = $this->input->post('idproductos');
+							$param['productos']      = $this->input->post('idproductos');
 							$param['proveedor']      = $this->input->post('proveedor');
 							$param['precios_costo']  = $this->input->post('precios_costo');
+							$param['doc_respaldo']   = $this->input->post('nombre_archivo');
 
 							for ($i = 0; $i < count($param['productos']); $i++) :
 
@@ -204,6 +174,7 @@ class Entradas extends CI_Controller {
 									'cantidad'      => $param['cantidades'][$i],
 									'precios_costo' => $param['precios_costo'][$i],
 									'id_proveedor'  => $param['proveedor'],
+									'doc_respaldo'  => $param['doc_respaldo'],
 							);
 
 								$result = $this->entrada_model->insert($data_detalle);					
@@ -222,32 +193,25 @@ class Entradas extends CI_Controller {
 
 	}
 
-	protected function save_detalleEntradas($param)
+
+	/* Eliminar */
+
+    public function delete()
 	{
-			for ($i = 0; $i < count($productos['producto']); $i++) {
+	    $id      = $this->input->get('id');
+	    $result  =  $this->entrada_model->delete($id);
+	    $msg['comprobador'] = false;
+	    if($result)
+	    {
+	     $msg['comprobador'] = TRUE;
+	    }
+	 echo json_encode($msg);
 
-					$data_detalle = array(
-							'fecha_entrada' => $fecha,
-							'id_almacen'    => $id_almacen,
-							'id_producto'   => $productos[$i],
-							'cantidad'      => $cantidades[$i],
-					);
-					$data1 = array(
-							'id_producto' => $productos[$i],
-							'stock'       => $cantidades[$i],
-							'id_almacen'  => $id_almacen,
-					);
-					$data_resta = array(
-							'id_producto' => $productos[$i],
-							'stock'       => $cantidades[$i],
-							'id_almacen'  => $id_almacenActual, // id_almacen del que estoy restando
-					);
-					/* $this->Ventas_model->save_detalleEntradas($data_detalle);
-					$this->Ventas_model->updateStock($data1);
-					$this->Ventas_model->updateStock_restar($data_resta); */
-
-			}
 	}
+
+
+
+
 
 
     public function verificar_obj($str)
