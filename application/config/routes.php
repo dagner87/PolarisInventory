@@ -37,6 +37,14 @@ $route['update_prov']       = 'proveedor/update';
 $route['delete_prov']       = 'proveedor/delete';
 $route['get_prov']          = 'proveedor/getDatos';
 
+/*--------------------CRUD CLIENTES --------------*/
+$route['clientes']         = 'cliente/getAll';
+$route['load_cliente']     = 'cliente/load_cliente';
+$route['insert_cliente']   = 'cliente/insert';
+$route['update_cliente']   = 'cliente/update';
+$route['delete_cliente']   = 'cliente/delete';
+$route['get_cliente']      = 'cliente/getDatos';
+
 /*--------------------CRUD CATEGORIAS --------------*/
 $route['categoria']        = 'categoria/getAll';
 $route['load_categorias']  = 'categoria/load_categorias';
@@ -63,6 +71,17 @@ $route['get_entradas']   = 'entradas/load_entradas';
 
 $route['insert_entrada'] = 'entradas/insert';
 $route['delete_entrada'] = 'entradas/delete';
+
+
+/*--------------------Stocks --------------*/
+
+$route['stock']        = 'entradas/stock';
+$route['lista_stocks'] = 'entradas/getStocks';
+
+/*--------------------Ventas --------------*/
+
+$route['ventas']        = 'ventas/addVenta';
+$route['lista_ventas'] = 'ventas/getAll';
 
 
 

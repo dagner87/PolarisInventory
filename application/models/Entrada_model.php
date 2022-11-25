@@ -17,6 +17,16 @@ class Entrada_model extends CI_Model {
      return $resultados->result();
 	}
 
+
+   public function getStocks()
+	{
+		$this->db->join("categoria c","stk.id_categoria = c.id");
+		$this->db->join("producto p","stk.id_producto = p.id");
+	    $resultados = $this->db->get("productos_stock stk");	
+	 
+     return $resultados->result();
+	}
+
 	
 
 	public function getDatos($id)
@@ -63,18 +73,44 @@ class Entrada_model extends CI_Model {
 	}
 
 
-	public function verificar_existencia($data)
-	{
+	public function updateStock($data){
+		
+		$this->db->where("id_producto",$data['id_producto']);
+		$this->db->from("productos_stock");
+		$resultados = $this->db->get();
+		
+		if($resultados->num_rows() > 0){
 
-	   $this->db->where('nombre_prove',$data);    
-	   $this->db->or_where('telefono',$data);    
-        $query = $this->db->get('entrada_productos');	
-        if($query->num_rows() > 0){
-	        return true;
-	      }else{
-	        return false;
-	      }
+          $this->db->where("id_producto",$data['id_producto']);
+          $this->db->set('stock', 'stock + "'.$data["stock"].'"', FALSE);
+		  $this->db->update("productos_stock");
+
+        }else{
+
+         $row =	$this->datosproducto($data['id_producto']);
+
+        	$data_insert = array( 
+		        		           'id_producto' => $data['id_producto'],
+		        		           'stock'       => $data["stock"],
+		        		           'id_categoria'=> $row->id_categoria,
+		        		           'estado'      => 'activo'
+        		                );
+
+         
+          	$this->db->insert("productos_stock",$data_insert);
+        }
 	}
+
+
+	public function datosproducto($id_producto){
+        $this->db->where('id', $id_producto);
+        $query = $this->db->get('producto');
+        if($query->num_rows() > 0){
+          return $query->row();
+        }else{
+          return false;
+        }
+    } 
 
 
 	

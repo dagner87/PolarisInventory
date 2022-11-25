@@ -27,12 +27,27 @@
                     <ul id="sidebarnav">
                         <li class="nav-small-cap"> <a href="<?= base_url() ?>">Menu</a></li>
 
-						<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">Inventario</span></a>
+						<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-calculator"></i><span class="hide-menu">Ventas</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?= base_url() ?>add_entrada">Entradas</a></li>
-                                <li><a href="<?= base_url() ?>lista_entrada">Lista entradas</a></li>
-                                <li><a href="<?= base_url() ?>ventas">Ventas</a></li>
+								<li><a href="<?= base_url() ?>ventas">Ventas</a></li>
 								<li><a href="<?= base_url() ?>gastos">Gastos</a></li>                              
+                            </ul>
+                        </li>
+						
+						<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop"></i><span class="hide-menu"> Inventario</span></a>
+						<ul aria-expanded="false" class="collapse">
+							<li><a href="<?= base_url() ?>add_entrada">Entradas</a></li>
+							<li><a href="<?= base_url() ?>lista_entrada">Lista entradas</a></li>
+                                <li><a href="<?= base_url() ?>stock">Stocks</a></li>                             
+                                                      
+                            </ul>
+                        </li>
+
+						<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu"> Reportes</span></a>
+						<ul aria-expanded="false" class="collapse">
+							<li><a href="<?= base_url() ?>add_entrada">Ventas mensuales</a></li>
+						                    
+                                                      
                             </ul>
                         </li>
                         
@@ -44,6 +59,7 @@
                                 <li><a href="<?= base_url() ?>producto"> Productos</a></li>
                                 <li><a href="<?= base_url() ?>categoria">Categorias</a></li>
                                 <li><a href="<?= base_url() ?>proveedor">Proveedores</a></li>
+                                <li><a href="<?= base_url() ?>clientes">Clientes</a></li>
 								
                             </ul>
                         </li>

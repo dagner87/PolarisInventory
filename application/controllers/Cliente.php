@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Proveedor extends CI_Controller {
+class Cliente extends CI_Controller {
 
 	public function __construct()
     {
@@ -9,7 +9,7 @@ class Proveedor extends CI_Controller {
         $this->load->database();
         $this->load->helper('url');
         $this->load->helper('download');
-        $this->load->model('proveedor_model');
+        $this->load->model('cliente_model');
         //$this->load->model('empleado_model');
        // $this->load->model('cargo_model');
         $this->load->library('form_validation');
@@ -23,21 +23,20 @@ class Proveedor extends CI_Controller {
 
 	
 /*----------- CRUD Funcions-----------------------*/ 
-    public function Get_proveedores()
+    public function getAll()
 	{
-	   $data['titulo']    = 'Administar Proveedores';
-	   $data['crud']      = 'Proveedor';
+	   $data['titulo']    = 'Administar clientees';
+	   $data['crud']      = 'cliente';
 	   $data['camino']    = 'insertar';
-	   $data['proveedores']     = $this->proveedor_model->get_proveedores();
-	  $this->load->view("layout/head",$data);
+	   $this->load->view("layout/head",$data);
 	   $this->load->view("layout/menu");
-	   $this->load->view("proveedores/v_proveedores",$data);
+	   $this->load->view("clientes/v_clientes",$data);
 	   $this->load->view("layout/footer");
     }  
 
-	function load_proveedores()
+	function load_cliente()
 	{
-	    $result = $this->proveedor_model->get_proveedores();
+	    $result = $this->cliente_model->get_clientes();
 	    $count = 0;
 	    $output = '';
 	    if(!empty($result))
@@ -45,10 +44,9 @@ class Proveedor extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->nombre_prove.' </td>';
+	        $output .= '<td>'.$row->nombre_cliente.' </td>';
 	        $output .= '<td>'.$row->telefono.'</td>';
-	       // $output .= '<td>'.$row->direccion_prove.'</td>';
-	        $output .= ' <td class="text-nowrap">
+	       $output .= ' <td class="text-nowrap">
 	                        <a href="javascript:void(0)" class="edit-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Editar"> 
 	                        <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
 	                        <a href="javascript:void(0)" class="eliminar-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Eliminar"> 
@@ -66,18 +64,18 @@ class Proveedor extends CI_Controller {
       if ($this->input->is_ajax_request()) 
         {
 
-          $this->form_validation->set_rules('nombre_prove', 'Nombre del Proveedor', 'required');
-		  $this->form_validation->set_rules('nombre_prove', 'Nombre del Proveedor', 'callback_username_check');
+          $this->form_validation->set_rules('nombre_cliente', 'Nombre del cliente', 'required');
+		  $this->form_validation->set_rules('nombre_cliente', 'Nombre del cliente', 'callback_username_check');
           $this->form_validation->set_rules('telefono', 'Telefono', 'required');
 		  $this->form_validation->set_rules('telefono', 'Telefono', 'callback_username_check');
 		  
            if ($this->form_validation->run() === TRUE) 
             {
-	            $param['nombre_prove']    = $this->input->post('nombre_prove');
-	            $param['telefono']           = $this->input->post('telefono');
-	            $param['direccion_prove']    = $this->input->post('direccion_prove');
+	            $param['nombre_cliente']  = $this->input->post('nombre_cliente');
+	            $param['telefono']        = $this->input->post('telefono');
+	            $param['nota']            = $this->input->post('nota');
 	          
-			    $result = $this->proveedor_model->insert($param);
+			    $result = $this->cliente_model->insert($param);
 		        $msg['comprobador']      = FALSE;
 
 		        if($result)
@@ -97,7 +95,7 @@ class Proveedor extends CI_Controller {
 	public function username_check($str)
 	{
 
-		$exit = $this->proveedor_model->verificar_existencia($str);
+		$exit = $this->cliente_model->verificar_existencia($str);
 		if ($exit)
 		{
 		$this->form_validation->set_message('username_check', 'El %s ya existe en la bd '.$str.'');
@@ -118,21 +116,20 @@ class Proveedor extends CI_Controller {
       if ($this->input->is_ajax_request()) 
         {
 
-			$this->form_validation->set_rules('nombre_prove', 'Nombre del Proveedor', 'required');
-			$this->form_validation->set_rules('nombre_prove', 'Nombre del Proveedor', 'callback_username_check');
+			$this->form_validation->set_rules('nombre_cliente', 'Nombre del cliente', 'required');
+			$this->form_validation->set_rules('nombre_cliente', 'Nombre del cliente', 'callback_username_check');
   
-			$this->form_validation->set_rules('telefono', 'Telefono', 'required');
-  
+			$this->form_validation->set_rules('telefono', 'Telefono', 'required');  
 			$this->form_validation->set_rules('telefono', 'Telefono', 'callback_username_check');
 
           if ($this->form_validation->run() === TRUE) 
             {
-	            $param['id']               = $this->input->post('id');	
-				$param['nombre_prove']     = $this->input->post('nombre_prove');
-	            $param['telefono']         = $this->input->post('telefono');
-	            $param['direccion_prove']  = $this->input->post('direccion_prove');	
+	            $param['id']              = $this->input->post('id');	
+				$param['nombre_cliente']  = $this->input->post('nombre_cliente');
+	            $param['telefono']        = $this->input->post('telefono');
+	            $param['nota']            = $this->input->post('nota');	
 
-				$result = $this->proveedor_model->update($param);
+				$result = $this->cliente_model->update($param);
 
 				if($result)
 				{
@@ -152,7 +149,7 @@ class Proveedor extends CI_Controller {
     {
 	
         $id     = $this->input->get('id');
-        $result = $this->proveedor_model->getDatos($id);		
+        $result = $this->cliente_model->getDatos($id);		
         echo json_encode($result);      
     }
 
@@ -161,7 +158,7 @@ class Proveedor extends CI_Controller {
     public function delete()
 	{
 	    $id      = $this->input->get('id');
-	    $result  =  $this->proveedor_model->delete($id);
+	    $result  =  $this->cliente_model->delete($id);
 	    $msg['comprobador'] = false;
 	    if($result)
 	    {

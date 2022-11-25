@@ -42,7 +42,7 @@ class Gasto extends CI_Controller {
 	        $output .= '<tr>';
 	        $output .= '<td>'.$row->fecha.'</td>';
 	        $output .= '<td>'.$row->concepto.'</td>';
-	        $output .= '<td>'.$row->monto.'</td>';
+	        $output .= '<td> $'.$row->monto.'</td>';
 	        $output .= ' <td class="text-nowrap">
 	                        <a href="javascript:void(0)" class="edit-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Editar"> 
 	                        <i class="fa fa-pencil text-inverse m-r-10"></i> </a>

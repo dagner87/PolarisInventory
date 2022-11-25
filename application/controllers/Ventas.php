@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Entradas extends CI_Controller {
+class Ventas extends CI_Controller {
 
 	public function __construct()
     {
@@ -23,30 +23,30 @@ class Entradas extends CI_Controller {
 
 	
 /*----------- CRUD Funcions-----------------------*/ 
-    public function add()
+    public function addVenta()
 	{
-	   $data['titulo']    = 'Administar Entradas';
-	   $data['crud']      = 'entradas';
+	   $data['titulo']    = 'Administar ventas';
+	   $data['crud']      = 'venta';
 	   $data['camino']    = 'insertar';
-		 $data['proveedores']     = $this->proveedor_model->get_proveedores();
-		 $data['productos']  = $this->producto_model->get_productos();
+	   $data['proveedores']     = $this->proveedor_model->get_proveedores();
+	   $data['productos']  = $this->producto_model->get_productos();
 
 	 
 	   $this->load->view("layout/head",$data);
 	   $this->load->view("layout/menu");
-	   $this->load->view("entradas/v_addEntrada",$data);
+	   $this->load->view("ventas/v_addVenta",$data);
 	   $this->load->view("layout/footer");
     }  
 
 
-    public function getEntradas()
+    public function getventas()
 	{
-	   $data['titulo']    = 'Lista Entradas';
-	   $data['crud']      = 'entradas';
+	   $data['titulo']    = 'Lista ventas';
+	   $data['crud']      = 'ventas';
 		  
 	   $this->load->view("layout/head",$data);
 	   $this->load->view("layout/menu");
-	   $this->load->view("entradas/v_lista_entradas",$data);
+	   $this->load->view("ventas/v_lista_ventas",$data);
 	   $this->load->view("layout/footer");
     }  
 
@@ -62,7 +62,7 @@ class Entradas extends CI_Controller {
 	   $this->load->view("layout/footer");
     }  
 
-	function load_entradas()
+	function load_ventas()
 	{
 	    $result = $this->entrada_model->getAll();			
 	    $count = 0;
@@ -154,7 +154,7 @@ class Entradas extends CI_Controller {
             {
 	            $param['id']             = $this->input->post('id');
 	            $param['descripcion']    = $this->input->post('descripcion');
-		        $result                  = $this->entradas_model->update_are($param);
+		        $result                  = $this->ventas_model->update_are($param);
 		        $msg['comprobador']      = FALSE;
 
 		        if($result)
@@ -251,7 +251,7 @@ class Entradas extends CI_Controller {
 
     public function verificar_obj($str)
     {
-    	$respuesta = $this->entradas_model->verificar_obj($str);
+    	$respuesta = $this->ventas_model->verificar_obj($str);
         if($respuesta)
          {
            $this->form_validation->set_message('verificar_obj', 'Este Objetivo ya existe en la bd');
