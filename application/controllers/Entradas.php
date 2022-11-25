@@ -73,9 +73,9 @@ class Entradas extends CI_Controller {
 	      {  
 	        $output .= '<tr>';
 	        $output .= '<td>'.$row->fecha_entrada.'</td>';
-	        $output .= '<td>'.$row->id_producto.' </td>';
+	        $output .= '<td>'.$row->nombre_producto.' </td>';
 	        $output .= '<td>'.$row->cantidad.' </td>';
-	        $output .= '<td>'.$row->precios_costo.' </td>';
+	        $output .= '<td> $'.$row->precios_costo.' </td>';
 	        $output .= '<td> 
 					<button data="'.$row->doc_respaldo.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
 					

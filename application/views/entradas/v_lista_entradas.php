@@ -8,13 +8,12 @@
         <table id="tbl_contenedora" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                  
-				  <th>fecha_entrada </th>
-				  <th>Producto</th>
-				  <th>Cantidad</th>
-				  <th>Precio Costo</th>
-				  <th>Doc Respaldo </th>
-                  <th>Acción</th>                  
+              		<th>Fecha entrada </th>
+									<th>Producto</th>
+									<th>Cantidad</th>
+									<th>Precio Costo</th>
+									<th>Doc Respaldo </th>
+									<th>Acción</th>                  
                 </tr>
             </thead>
             <tbody id="contenido_tbl">

@@ -13,7 +13,9 @@ class Entrada_model extends CI_Model {
 
    public function getAll()
 	{
-	 $resultados = $this->db->get("entrada_productos");	
+		
+		$this->db->join("producto p","ent.id_producto = p.id");	
+	   $resultados = $this->db->get("entrada_productos ent");	
      return $resultados->result();
 	}
 
