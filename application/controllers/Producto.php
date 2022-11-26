@@ -45,9 +45,8 @@ class Producto extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->nombre_producto.'</td>';       
-	        $output .= '<td>'.$row->nombre_prove.'</td>';			
-			$output .= '<td>'.$row->peso_neto.' lb</td>';
+	        $output .= '<td>'.$row->nombre_producto.'</td>'; 
+			$output .= '<td>'.$row->peso_neto.' Lb</td>';
 			if($row->estado == 'activo'){
 				$output .='<td><span class="label label-success">Activo</span></td>';
 			}else {
@@ -118,7 +117,7 @@ class Producto extends CI_Controller {
 
 			$this->form_validation->set_rules('nombre_producto', 'Nombre Producto', 'required');
 			$this->form_validation->set_rules('nombre_producto', 'Nombre del Producto', 'callback_producto_check');
-			$this->form_validation->set_rules('proveedor', 'proveedor', 'required');
+			//$this->form_validation->set_rules('proveedor', 'proveedor', 'required');
 			$this->form_validation->set_rules('categoria', 'Categoria', 'required');
 			$this->form_validation->set_rules('peso_neto', 'Peso Neto', 'required');
 			$this->form_validation->set_rules('genero', 'genero', 'required');
@@ -128,7 +127,7 @@ class Producto extends CI_Controller {
             {
 	            $param['id']               = $this->input->post('id');
 				$param['nombre_producto']  = $this->input->post('nombre_producto');
-				$param['id_proveedor']     = $this->input->post('proveedor');
+				//$param['id_proveedor']     = $this->input->post('proveedor');
 				$param['id_categoria']     = $this->input->post('categoria');
 				$param['description']      = $this->input->post('description');
 				$param['peso_neto']        = $this->input->post('peso_neto');

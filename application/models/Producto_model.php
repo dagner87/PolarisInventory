@@ -13,9 +13,8 @@ class Producto_model extends CI_Model {
 
 	public function get_productos()
 	{
-	   $this->db->select("p.id,p.nombre_producto,p.estado ,p.peso_neto,prv.nombre_prove");
-	   $this->db->join('proveedor prv', 'prv.id  = p.id_proveedor');
-       $resultados = $this->db->get("producto p");
+	   $this->db->select("p.id,p.nombre_producto,p.estado ,p.peso_neto");
+	   $resultados = $this->db->get("producto p");
      return $resultados->result();
 	}
 

@@ -10,7 +10,6 @@
             <thead>
                 <tr>
                    <th>Nombre</th>	
-									 <th>Proveedor </th>
 									 <th>Peso Neto </th>
 									 <th>Estado </th>
                    <th>Acción</th>                  
@@ -45,24 +44,7 @@
                  <input type="hidden" name="id" id="id" value="">
 								 <div class="form-body">
 										<div class="row p-t-20">
-							     <!--/Proveedor-->
-										<div class="col-md-6">
-														<div class="form-group">
-																<label class="control-label">Proveedor</label>
-																<select class="form-control custom-select" custom-select" id="proveedor"  name="proveedor"
-                                          data-placeholder="Seleccione Proveedor" tabindex="1">
-                                       <option value="" style="color:red" disabled selected>Seleccione Proveedor *</option >
-																			 <?php if(!empty($proveedores))
-                                      {
-                                        $select = "";
-                                        foreach($proveedores as $row):
-                                           echo '<option value="'.$row->id.'">'.$row->nombre_prove.'</option>';
-                                        endforeach;
-                                      } ?>
-																</select>
-														</div>
-												</div>												
-												<!--/Proveedor-->
+							     
 												<!--/categoria-->
 												<div class="col-md-6">
 														<div class="form-group">
