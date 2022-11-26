@@ -60,7 +60,7 @@
                           <div class="col-md-12">
                               <div class="form-group">
                                   <label class="control-label">Monto ($)</label>
-                                  <input type="number" id="monto" name="monto" class="form-control" placeholder="Escriba el monto">
+                                  <input type="number" step="0.01" id="monto" name="monto" class="form-control" placeholder="Escriba el monto">
                                   <small class="form-control-feedback"> </small> </div>
                           </div>
 

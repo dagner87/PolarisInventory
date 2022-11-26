@@ -19,7 +19,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="nav-small-cap">MENU</li>
+                        <li class="nav-small-cap">  <a href="<?= base_url() ?>" >MENU</a></li>
                         
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">Movimientos</span></a>
                             <ul aria-expanded="false" class="collapse">

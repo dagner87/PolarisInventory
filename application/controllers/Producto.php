@@ -76,6 +76,7 @@ class Producto extends CI_Controller {
         {
 
           $this->form_validation->set_rules('nombre_producto', 'Nombre Producto', 'required');
+          $this->form_validation->set_rules('nombre_producto', 'Nombre del Producto', 'callback_producto_check');
           $this->form_validation->set_rules('proveedor', 'proveedor', 'required');
           $this->form_validation->set_rules('categoria', 'Categoria', 'required');
           $this->form_validation->set_rules('peso_neto', 'Peso Neto', 'required');
@@ -85,12 +86,12 @@ class Producto extends CI_Controller {
           if ($this->form_validation->run() === TRUE) 
             {
 	          $param['nombre_producto']  = $this->input->post('nombre_producto');
-			  $param['id_proveedor'] = $this->input->post('proveedor');
-			  $param['id_categoria'] = $this->input->post('categoria');
-			  $param['description']  = $this->input->post('description');
-			  $param['peso_neto']    = $this->input->post('peso_neto');
-			  $param['estado']       = $this->input->post('estado');
-			  $param['genero']       = $this->input->post('genero');
+			  $param['id_proveedor']     = $this->input->post('proveedor');
+			  $param['id_categoria']     = $this->input->post('categoria');
+			  $param['description']      = $this->input->post('description');
+			  $param['peso_neto']        = $this->input->post('peso_neto');
+			  $param['estado']           = $this->input->post('estado');
+			  $param['genero']           = $this->input->post('genero');
 		        $result       = $this->producto_model->insert($param);
 		        $msg['comprobador']      = FALSE;
 
@@ -115,6 +116,7 @@ class Producto extends CI_Controller {
         {
 
 			$this->form_validation->set_rules('nombre_producto', 'Nombre Producto', 'required');
+			$this->form_validation->set_rules('nombre_producto', 'Nombre del Producto', 'callback_producto_check');
 			$this->form_validation->set_rules('proveedor', 'proveedor', 'required');
 			$this->form_validation->set_rules('categoria', 'Categoria', 'required');
 			$this->form_validation->set_rules('peso_neto', 'Peso Neto', 'required');
@@ -174,17 +176,20 @@ class Producto extends CI_Controller {
 	}
 
 
-    public function verificar_dni($str) 
-    {
-    	$respuesta = $this->producto_model->verificar_dni($str);
-        if($respuesta)
-         {
-           $this->form_validation->set_message('verificar_dni', 'Este DNI ya existe en la bd');
-           return FALSE;
-        } else {
-                return TRUE;
-               }	
-    }
+    public function producto_check($str)
+	{
+
+		$exit = $this->producto_model->verificar_existencia($str);
+		if ($exit)
+		{
+		$this->form_validation->set_message('producto_check', 'El %s ya existe en la bd '.$str.'');
+		return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 
     public function getCargoArea() 
     {

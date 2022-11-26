@@ -78,5 +78,13 @@ class Cliente_model extends CI_Model {
 	}
 
 
+	public function searchCliente($data){
+		$this->db->or_like('telefono', $data['telefono']);
+		$query = $this->db->like('nombre_cliente', $data['nombre_cliente']);
+		$query  = $this->db->get('cliente');
+		   return $query->row();
+	}
+
+
 	
 }

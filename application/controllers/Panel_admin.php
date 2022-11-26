@@ -10,7 +10,7 @@ class Panel_admin extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('download');
         $this->load->model('empleado_model');
-        $this->load->model('cargo_model');
+        $this->load->model('entrada_model');
         $this->load->model('gasto_model');
         $this->load->model('objetivo_model');
         $this->load->library('form_validation');
@@ -25,7 +25,8 @@ class Panel_admin extends CI_Controller {
 	{
 	   $data['crud'] = '';
 	   $data['titulo']   = 'Administrador';
-	   $data['totalGastos']   =   $this->gasto_model->totalGastos();
+	   $data['totalGastos']       =   $this->gasto_model->totalGastos();
+	   $data['totalInventario']   =   $this->entrada_model->totalInventario();
 	   
 		$this->load->view("layout/head",$data);
 		$this->load->view("layout/menu",$data);

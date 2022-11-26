@@ -51,7 +51,7 @@
 																<label class="control-label">Proveedor</label>
 																<select class="form-control custom-select" custom-select" id="proveedor"  name="proveedor"
                                           data-placeholder="Seleccione Proveedor" tabindex="1">
-                                       <option value="" style="color:red" disabled selected>Seleccione Area *</option >
+                                       <option value="" style="color:red" disabled selected>Seleccione Proveedor *</option >
 																			 <?php if(!empty($proveedores))
                                       {
                                         $select = "";

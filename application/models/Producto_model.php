@@ -92,9 +92,10 @@ class Producto_model extends CI_Model {
 	}
 
 	
-	public function verificar_dni($dni)
+	public function verificar_existencia($data)
 	{
-	   $this->db->where('dni',$dni);    
+
+	   $this->db->where('nombre_producto',$data); 
         $query = $this->db->get('producto');	
         if($query->num_rows() > 0){
 	        return true;

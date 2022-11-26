@@ -185,21 +185,32 @@ class Cliente extends CI_Controller {
 
 	public function process()
 	{
-     $this->load->view('vendor/autoload.php');
+		
+		if ($this->input->is_ajax_request()){
+			$this->form_validation->set_rules('nombre_cliente', 'Nombre del cliente', 'required');
+			$this->form_validation->set_rules('nombre_cliente', 'Nombre del cliente', 'callback_username_check');
+			$this->form_validation->set_rules('telefono', 'Telefono', 'required');
+			$this->form_validation->set_rules('telefono', 'Telefono', 'callback_username_check');
+			
+			 if ($this->form_validation->run() === TRUE) 
+			  {
+				  $param['nombre_cliente']  = $this->input->post('nombre_cliente');
+				  $param['telefono']        = $this->input->post('telefono');
+				  $result = $this->cliente_model->searchCliente($param);
+				  $msg['comprobador']      = FALSE;
+  
+				  if($result)
+					   {
+						 $msg['comprobador'] = TRUE;
+					   }
+				   echo json_encode($msg);
+  
+			   }else{
+					 $msg['validacion'] =  validation_errors('<li>','</li>');
+					 echo json_encode($msg);
+					}
 
-	  $options = array(
-	    'cluster' => 'us2',
-	    'useTLS' => true
-	  );
-	  $pusher = new Pusher\Pusher(
-	    '65b03e0e93aaecc887ae',
-	    '05c993f7b25a91af88ad',
-	    '885928',
-	    $options
-	  );
-
-	  $data['message'] = $this->input->post('nombre');
-	  $pusher->trigger('rrhhv2', 'my-event', $data);
-
+		}
 	}
+   
 }

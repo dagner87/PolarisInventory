@@ -115,5 +115,22 @@ class Entrada_model extends CI_Model {
     } 
 
 
+	public function totalInventario()
+	{
+		$data['year'] = date('Y');
+		
+		$this->db->select_sum('precios_costo');       
+        $this->db->where('YEAR(fecha_entrada)', $data['year']);        
+        $this->db->from('entrada_productos');
+
+        $query = $this->db->get();
+        if ($query->row()->precios_costo == null) {
+            return 0;
+        }
+        return $query->row()->precios_costo;
+		
+	}
+
+
 	
 }

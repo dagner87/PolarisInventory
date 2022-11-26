@@ -64,9 +64,9 @@
 								<div class="col-md-6">
 							     	<div class="form-group ">
                                         <label for="cliente">Cliente</label>
-                                        <div class="input-group">
+                                        <div id="the-basics"  class="input-group">
                                             <input type="text" class="form-control" id="cliente" placeholder="Buscar Cliente">
-                                            <div id="searchcliente"  class="input-group-addon btn-success"><i class="ti-search"></i></div>
+                                            <div id="searchcliente"  class="input-group-addon btn-success"><i class="ti-search showClientes"></i></div>
 										</div>
 										<small class="form-control-feedback">  </small>
                                     </div>
@@ -100,17 +100,43 @@
 				</div>
 		</form>
 </div>
+
+
+
+<!-- modal-dialog -->
+<div id="show_modal" class="modal bs-example-modal-lg fade in" 
+         tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div  class="modal-header">
+                    <h4 class="modal-title" id="">Lista de clientes</h4>
+                    <button type="button" class="close cerrar" data-dismiss="modal"  aria-hidden="true">×</button>
+                </div>
+
+				<div class="row">
+					
+				</div>
+
+				
+         
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+       
+  </div>
+ <!-- /.modal-dialog -->
  
 
 <script src="<?php echo base_url();?>plantilla/assets/plugins/select2/dist/js/select2.full.min.js"></script>
-<script src="<?php echo base_url();?>plantilla/assets/custon_function/custom.js"></script>
+<!-- Typehead Plugin JavaScript -->
+
+<script src="<?php echo base_url();?>plantilla/assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+<script src="<?php echo base_url();?>plantilla/assets/plugins/typeahead.js-master/dist/typeahead-init.js"></script>
+<script>
 
 
-
-
-    <script>
-
-     $(document).ready(function() {
+   $(document).ready(function() {
 
       $(".select2").select2();
       $("#id_producto_entrada").on("change",function(){
@@ -125,7 +151,7 @@
             html += "<td><input type='hidden' name='idproductos[]' value='"+infoproducto[0]+"'>"+infoproducto[1]+"</td>";
             html += "<td><input type='text' name='cantidades[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
 
-            html += "<td><input type='text' name='precios_costo[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
+            html += "<td><input type='text' name='precios_venta[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
 
             html += "<td><button type='button' class='btn btn-danger btn-remove'><span class='fa fa-remove'></span></button></td>";
 
@@ -138,11 +164,9 @@
         }
     });
 
-     });//fin onready
+});//fin onready
 
-   
 
-				
 
 
 
