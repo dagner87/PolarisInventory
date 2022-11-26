@@ -45,6 +45,26 @@
 								
 						</div>
 						<!--/row-->
+						<div class="row">
+						<!--/span-->
+						<div class="col-md-6">
+							<div class="form-group ">
+								<label class="control-label"># Factura Proveedor</label>
+								<input type="text" id="invoice" name="invoice" class="form-control form-control-danger" placeholder="Escriba el  # de factura del proveedor">
+								<small class="form-control-feedback">  </small>
+								</div>
+						</div>
+						<!--/span-->
+						<!--/span-->
+						<div class="col-md-6">
+							<div class="form-group ">
+								<label class="control-label">Costo envio</label>
+								<input type="number" step="0.01" id="shipping" name="shipping" class="form-control form-control-danger" min="0" value="0">
+								<small class="form-control-feedback">  </small>
+								</div>
+						</div>
+						<!--/span-->
+					</div>
 						</div>
 						<!--/row-->
 					
@@ -52,7 +72,7 @@
 								<div class="col-md-6">
 										<div class="form-group">
 										<label class="control-label">Producto</label>
-												<select  name="producto_entrada"   id="id_producto_entrada"  class="form-control custom-select" require >
+												<select  name="producto_entrada"   id="id_producto_entrada"  class="form-control custom-select select2 " require >
 												<option value=" ">Seleccionar Producto</option>
 														<?php
 															foreach ($productos as $fila):
@@ -67,6 +87,8 @@
 										</div>
 								</div>
 								<!--/span-->	
+								
+							
 								<div class="col-md-6" style="padding: 30px;">
 									
 								<label for="">&nbsp;</label>
@@ -77,6 +99,8 @@
 									</div>
 								</div>						
 						</div>
+
+					
             <hr>
 						<table id="tb-entradas" class="table table-bordered table-striped table-hover">
 												<thead>
@@ -117,7 +141,7 @@
       $(".select2").select2();
       $("#id_producto_entrada").on("change",function(){
          let data = $(this).val();
-				 console.log(data);
+				 //console.log(data);
          var option = $(this).find(':selected')[0];//obtiene el producto seleccionado
          $(option).attr('disabled', 'disabled'); // y lo desabilita para no volverlo a seleccionar
 

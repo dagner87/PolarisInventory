@@ -92,7 +92,8 @@ class Producto extends CI_Controller {
 			  $param['peso_neto']        = $this->input->post('peso_neto');
 			  $param['estado']           = $this->input->post('estado');
 			  $param['genero']           = $this->input->post('genero');
-		        $result       = $this->producto_model->insert($param);
+		      $result                    = $this->producto_model->insert($param);
+
 		        $msg['comprobador']      = FALSE;
 
 		        if($result)
@@ -198,26 +199,4 @@ class Producto extends CI_Controller {
        echo json_encode($data);
     }
 
-
-
-
-	public function process()
-	{
-     $this->load->view('vendor/autoload.php');
-
-	  $options = array(
-	    'cluster' => 'us2',
-	    'useTLS' => true
-	  );
-	  $pusher = new Pusher\Pusher(
-	    '65b03e0e93aaecc887ae',
-	    '05c993f7b25a91af88ad',
-	    '885928',
-	    $options
-	  );
-
-	  $data['message'] = $this->input->post('nombre');
-	  $pusher->trigger('rrhhv2', 'my-event', $data);
-
-	}
 }

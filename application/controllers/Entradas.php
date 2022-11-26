@@ -9,9 +9,12 @@ class Entradas extends CI_Controller {
         $this->load->database();
         $this->load->helper('url');
         $this->load->helper('download');
+
         $this->load->model('proveedor_model');
         $this->load->model('producto_model');
-        $this->load->model('entrada_model');       
+        $this->load->model('entrada_model');  
+		$this->load->model('gasto_model');   
+
         $this->load->library('form_validation');
        
          if ($this->session->userdata('perfil') === false || $this->session->userdata('perfil') !== 'administrador') {
@@ -103,7 +106,7 @@ class Entradas extends CI_Controller {
 	      {  
 	        $output .= '<tr>';
 	        $output .= '<td>'.$row->nombre_producto.'</td>';
-	        $output .= '<td>'.$row->nombre.' </td>';
+	        //$output .= '<td>'.$row->nombre.' </td>';
 	        $output .= '<td>'.$row->stock.' </td>';	        
 			if($row->estado == 'activo'){
 				$output .='<td><span class="label label-success">Activo</span></td>';
@@ -154,7 +157,7 @@ class Entradas extends CI_Controller {
             {
 	            $param['id']             = $this->input->post('id');
 	            $param['descripcion']    = $this->input->post('descripcion');
-		        $result                  = $this->entradas_model->update_are($param);
+		        $result                  = $this->entradas_model->update($param);
 		        $msg['comprobador']      = FALSE;
 
 		        if($result)
@@ -179,9 +182,16 @@ class Entradas extends CI_Controller {
 
 					$this->form_validation->set_rules('fecha_entrada', 'fecha', 'required');
 					$this->form_validation->set_rules('proveedor', 'Proveedor', 'required');
+					
+					$this->form_validation->set_rules('shipping', 'Costo envio', 'required');
+					$this->form_validation->set_rules('invoice', '# Factura Proveedor', 'required');
+					
 					$this->form_validation->set_rules('nombre_archivo', 'Doc Respaldo', 'required');
 					$this->form_validation->set_rules('cantidades[]', 'Cantidades', 'required');
 					$this->form_validation->set_rules('precios_costo[]', 'Precio costo', 'required');
+					
+
+					
 
            if ($this->form_validation->run() === TRUE) 
             {
@@ -190,8 +200,27 @@ class Entradas extends CI_Controller {
 							$param['cantidades']     = $this->input->post('cantidades');
 							$param['productos']      = $this->input->post('idproductos');
 							$param['proveedor']      = $this->input->post('proveedor');
+
+							$param['invoice']      = $this->input->post('invoice');
+							$param['shipping']      = $this->input->post('shipping');
+
 							$param['precios_costo']  = $this->input->post('precios_costo');
 							$param['doc_respaldo']   = $this->input->post('nombre_archivo');
+
+                            if ($param['shipping'] > 0) {
+
+								$row = $this->proveedor_model->getDatos($param['proveedor']);
+								$concepto = "(SHIPPING)({$row->nombre_prove})Invoice{$param['invoice']}";
+	
+									$gastos_envio  = array(
+										'concepto'  => $concepto,
+										'monto'     => $param['shipping'],
+										'fecha'     => $param['fecha'],
+									);
+	
+									/* Gastos de envio */
+								$resp = 	$this->gasto_model->insert($gastos_envio);	
+							}
 
 							for ($i = 0; $i < count($param['productos']); $i++) :
 
@@ -202,14 +231,17 @@ class Entradas extends CI_Controller {
 										'precios_costo' => $param['precios_costo'][$i],
 										'id_proveedor'  => $param['proveedor'],
 										'doc_respaldo'  => $param['doc_respaldo'],
-								);
+										'invoice'       => $param['invoice'],
+										
+								);								
 								
 								$updateStock = array(
 									'id_producto' => $param['productos'][$i],
 									'stock'       => $param['cantidades'][$i],
 								);
 
-								          $this->entrada_model->updateStock($updateStock);
+								 /* Actualizo el stock */
+								 $this->entrada_model->updateStock($updateStock);
 								$result = $this->entrada_model->insert($data_detalle);					
 
 

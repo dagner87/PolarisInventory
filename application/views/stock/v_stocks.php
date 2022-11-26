@@ -7,9 +7,9 @@
             <thead>
                 <tr>
                     <th>Producto </th>
-					<th>Categoria </th>
-					<th>Stock </th>									
-					<th>Estado </th>
+										<!-- 	<th>Categoria </th> -->
+											<th>Stock </th>									
+											<th>Estado </th>
                                    
                 </tr>
             </thead>

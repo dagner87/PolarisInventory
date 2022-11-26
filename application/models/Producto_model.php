@@ -43,7 +43,7 @@ class Producto_model extends CI_Model {
     {
       $this->db->where('id',$id);
       $query  = $this->db->get('producto');
-      return $query->row();;
+      return $query->row();
     }
 
 
