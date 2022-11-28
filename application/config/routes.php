@@ -81,9 +81,11 @@ $route['lista_stocks'] = 'entradas/getStocks';
 
 /*--------------------Ventas --------------*/
 
-$route['insert_venta'] = 'ventas/insert';
+$route['insert_venta']  = 'ventas/insert';
 $route['ventas']        = 'ventas/addVenta';
-$route['lista_ventas']  = 'ventas/getAll';
+$route['lista_ventas']  = 'ventas/getventas';
+$route['get_ventas']    = 'ventas/load_ventas';
+$route['anular_venta']  = 'ventas/update';
 
 
 

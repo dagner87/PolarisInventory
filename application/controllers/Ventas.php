@@ -56,16 +56,6 @@ class Ventas extends CI_Controller {
     }  
 
 
-    public function stock()
-	{
-	   $data['titulo']    = 'Lista Stocks';
-	   $data['crud']      = 'stock';
-		  
-	   $this->load->view("layout/head",$data);
-	   $this->load->view("layout/menu");
-	   $this->load->view("stock/v_stocks",$data);
-	   $this->load->view("layout/footer");
-    }  
 
 
 
@@ -144,7 +134,7 @@ class Ventas extends CI_Controller {
 
 	function load_ventas()
 	{
-	    $result = $this->entrada_model->getAll();			
+	    $result = $this->ventas_model->getAll();			
 	    $count = 0;
 	    $output = '';
 	    if(!empty($result))
@@ -152,17 +142,17 @@ class Ventas extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->fecha_entrada.'</td>';
-	        $output .= '<td>'.$row->id_producto.' </td>';
-	        $output .= '<td>'.$row->cantidad.' </td>';
-	        $output .= '<td>'.$row->precios_costo.' </td>';
+	        $output .= '<td>'.$row->fecha.'</td>';
+	        $output .= '<td>'.$row->nombre_cliente.' </td>';
+	        $output .= '<td>'.$row->medio_pago.' </td>';
+	        $output .= '<td>'.$row->total.' </td>';
 	        $output .= '<td> 
-					<button data="'.$row->doc_respaldo.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
+					<button title="Detalle de venta" data="'.$row->id.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
 					
 					 </td>';
 	        $output .= ' <td class="text-nowrap">	                       
-	                        <a href="javascript:void(0)"  class="eliminar-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Eliminar"> 
-	                        <i class="fa fa-close text-danger"></i> </a>
+	                        <a href="javascript:void(0)"  class="anular-row-btn" data="'.$row->id.'" data-toggle="tooltip" data-original-title="Anular Venta"> 
+	                        <i title="Anular Venta" class="fa fa-minus-circle text-danger"></i> </a>
                         </td>';
 			$output .= '</tr>';
 	       }
@@ -207,65 +197,30 @@ class Ventas extends CI_Controller {
 
     /* Editar */
 
-     public function update_are()
+     public function update()
     {
-      if ($this->input->is_ajax_request()) 
-        {
+      
+		$param['id']        = $this->input->get('id');
+		$param['estado']    = 'anulado';
+		$result             = $this->ventas_model->updateVenta($param);
+		$msg['comprobador']      = FALSE;
 
-          $this->form_validation->set_rules('descripcion', 'Descripcion', 'required');
-          if ($this->form_validation->run() === TRUE) 
-            {
-	            $param['id']             = $this->input->post('id');
-	            $param['descripcion']    = $this->input->post('descripcion');
-		        $result                  = $this->ventas_model->update_are($param);
-		        $msg['comprobador']      = FALSE;
+		if($result)
+				{
+				$msg['comprobador'] = TRUE;
+				}
+			echo json_encode($msg);
 
-		        if($result)
-		             {
-		               $msg['comprobador'] = TRUE;
-		             }
-		         echo json_encode($msg);
-
-		     }else{
-                   $msg['validacion'] =  validation_errors('<li>','</li>');
-                   echo json_encode($msg);
-                  }
-        }              
+		    
     }
    
 
 
 	/* Eliminar */
 
-    public function delete()
-	{
-	    $id      = $this->input->get('id');
-	    $result  =  $this->entrada_model->delete($id);
-	    $msg['comprobador'] = false;
-	    if($result)
-	    {
-	     $msg['comprobador'] = TRUE;
-	    }
-	 echo json_encode($msg);
-
-	}
 
 
 
-
-
-
-    public function verificar_obj($str)
-    {
-    	$respuesta = $this->ventas_model->verificar_obj($str);
-        if($respuesta)
-         {
-           $this->form_validation->set_message('verificar_obj', 'Este Objetivo ya existe en la bd');
-           return FALSE;
-        } else {
-                return TRUE;
-               }	
-    }
 
     
 

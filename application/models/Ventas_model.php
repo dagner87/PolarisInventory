@@ -471,6 +471,17 @@ public function getProductos_stockAlmacen($id_almacen){
     }
 
 
+	public function getAll()
+	{
+	
+		$this->db->select("v.id id, v.fecha, c.nombre_cliente, v.medio_pago, v.total, v.estado");
+		$this->db->join("cliente c","c.id = v.id_cliente");		
+		$this->db->where("estado =",'exitosa');
+	   $resultados = $this->db->get("ventas v");	
+     return $resultados->result();
+	}
+
+
 	/*----------guarda los datos de donde fueron las guias-------*/
 	public function save_datosGuia($data){
 		return $this->db->insert("distribucion_guia",$data);
@@ -534,5 +545,17 @@ public function getProductos_stockAlmacen($id_almacen){
 		$resultados = $this->db->get();
 		return $resultados->result();
 	}	
+
+	public function updateVenta($data)
+	{
+		$this->db->where('id',$data['id']);    
+        $this->db->update('ventas',$data);
+        if($this->db->affected_rows() > 0){
+          return true;        
+        }else{
+          return false;
+        } 
+    
+	}
 
 }
