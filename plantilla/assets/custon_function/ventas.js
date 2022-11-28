@@ -5,6 +5,11 @@ $(function () {
 	
 });
 
+$(document).on("click",".btn-remove", function(){
+	$(this).closest("tr").remove();
+	sumar_venta();
+});
+
 
 $(document).on("keyup","#contenido_tbl input.cantidades", function(){
 	//let cantidad = $(this).val();

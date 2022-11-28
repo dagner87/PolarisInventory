@@ -134,6 +134,7 @@
 
 <script src="<?php echo base_url();?>plantilla/assets/plugins/select2/dist/js/select2.full.min.js"></script>
 <script src="<?php echo base_url();?>plantilla/assets/custon_function/ventas.js"></script>
+
 <script>
 
 
@@ -155,7 +156,7 @@
             html += "<td><input type='text' name='cantidades[]'  value='"+infoproducto[2]+"' class='cantidades' required data-parsley-minlength="+infoproducto[2]+"></td>";
 
             html += "<td><input type='text' name='precios_venta[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
-			html += "<td><input type='hidden' name='importes[]' value=''><p></p></td>";
+			html += "<td><input type='hidden' name='importes[]' value=''><p>0.00</p></td>";
             html += "<td><button type='button' class='btn btn-danger btn-remove'><span class='fa fa-remove'></span></button></td>";
 
             html += "</tr>";
