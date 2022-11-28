@@ -9,11 +9,14 @@ class Ventas extends CI_Controller {
         $this->load->database();
         $this->load->helper('url');
         $this->load->helper('download');
+
+        $this->load->library('form_validation');
+
         $this->load->model('proveedor_model');
         $this->load->model('producto_model');
         $this->load->model('entrada_model');       
         $this->load->model('cliente_model');       
-        $this->load->library('form_validation');
+        $this->load->model('ventas_model');       
        
          if ($this->session->userdata('perfil') === false || $this->session->userdata('perfil') !== 'administrador') {
             redirect(base_url() . 'login');
@@ -64,6 +67,81 @@ class Ventas extends CI_Controller {
 	   $this->load->view("layout/footer");
     }  
 
+
+
+	 /* insertar */
+
+	 public function insert()
+	 {
+ 
+		 if ($this->input->is_ajax_request()) 
+		 {
+ 
+			$this->form_validation->set_rules('fecha', 'fecha', 'required');
+			$this->form_validation->set_rules('medio_pago', 'Medio de Pago', 'required');
+			//$this->form_validation->set_rules('producto', 'Producto', 'required');
+			$this->form_validation->set_rules('cliente', 'Cliente', 'required');
+
+			$this->form_validation->set_rules('cantidades[]', 'Cantidades', 'required');
+			$this->form_validation->set_rules('precios_venta[]', 'Precio costo', 'required');
+ 
+			if ($this->form_validation->run() === TRUE) 
+			 {
+					$msg['comprobador']      = FALSE;
+					
+					/* venta */
+					$param['fecha']        = $this->input->post('fecha');
+					$param['id_cliente']   = $this->input->post('cliente');
+					$param['medio_pago']   = $this->input->post('medio_pago');
+					$param['total']        = $this->input->post('total');
+
+					if ($this->ventas_model->save_venta($param)) {
+						$venta_id  = $this->ventas_model->lastID();
+					}	
+					
+
+                    /* Detalle de venta */
+					$param['productos']      = $this->input->post('idproductos');
+					$param['cantidades']     = $this->input->post('cantidades');
+					$param['precios_venta']  = $this->input->post('precios_venta');
+					$param['importes']       = $this->input->post('importes');
+					
+					for ($i = 0; $i < count($param['productos']); $i++) :
+
+						$detalle_venta = array(
+
+							    'producto_id '  => $param['productos'][$i],
+							    'venta_id'      => $venta_id,
+								'precio'        => $param['precios_venta'][$i],
+								'cantidad'      => $param['cantidades'][$i],
+								'importe'       => $param['importes'][$i],
+								
+						);
+						
+						$updateStock = array(
+							'id_producto' => $param['productos'][$i],
+							'stock'       => $param['cantidades'][$i],
+						);
+
+								  $this->ventas_model->restarStock($updateStock);
+						$result = $this->ventas_model->save_detalle($detalle_venta);					
+
+
+					endfor;
+					if($result)
+			{
+			$msg['comprobador'] = TRUE;
+			}
+			echo json_encode($msg);
+
+			} else{
+					$msg['validacion'] =  validation_errors('<li>','</li>');
+					echo json_encode($msg);
+				}
+	    }     
+ 
+	 }
+
 	function load_ventas()
 	{
 	    $result = $this->entrada_model->getAll();			
@@ -94,6 +172,9 @@ class Ventas extends CI_Controller {
 	}
 
 
+
+
+
 	function getStocks()
 	{
 	    $result = $this->entrada_model->getStocks();			
@@ -122,27 +203,7 @@ class Ventas extends CI_Controller {
 
 
 
-	public function adjunto_entrada()
-	{
-			$config['upload_path']   = 'assets/respaldos';
-			$config['allowed_types'] = 'pdf|jpg|png|docx';
-			$config['max_size']      = 4048;
-			$this->load->library('upload', $config);
-			if (!$this->upload->do_upload('doc_respaldo')) {
-				#Aquí me refiero a "foto", el nombre que pusimos en FormData
-				$msg['success']= false;
-				$msg['error']= $this->upload->display_errors();
-			echo json_encode($msg);
-
-		} else {
-				$datos_img     = array('upload_data' => $this->upload->data());
-				$msg['imagen'] = $datos_img['upload_data']['file_name'];
-
-		}
-		echo json_encode($msg);
-
-	}
-  
+	
 
     /* Editar */
 
@@ -171,65 +232,7 @@ class Ventas extends CI_Controller {
                   }
         }              
     }
-    /* insertar */
-
-    public function insert()
-	{
-
-		if ($this->input->is_ajax_request()) 
-        {
-
-					$this->form_validation->set_rules('fecha', 'fecha', 'required');
-					$this->form_validation->set_rules('id_cliente', 'Cliente', 'required');
-					$this->form_validation->set_rules('medio_pago', 'Medio de Pago', 'required');
-
-					$this->form_validation->set_rules('cantidades[]', 'Cantidades', 'required');
-					$this->form_validation->set_rules('precios_costo[]', 'Precio costo', 'required');
-
-           if ($this->form_validation->run() === TRUE) 
-            {
-							$msg['comprobador']      = FALSE;
-							$param['fecha']          = $this->input->post('fecha_entrada');
-							$param['cantidades']     = $this->input->post('cantidades');
-							$param['productos']      = $this->input->post('idproductos');
-							$param['proveedor']      = $this->input->post('proveedor');
-							$param['precios_costo']  = $this->input->post('precios_costo');
-							$param['doc_respaldo']   = $this->input->post('nombre_archivo');
-
-							for ($i = 0; $i < count($param['productos']); $i++) :
-
-								$data_detalle = array(
-										'fecha_entrada' => $param['fecha'],
-										'id_producto'   => $param['productos'][$i],
-										'cantidad'      => $param['cantidades'][$i],
-										'precios_costo' => $param['precios_costo'][$i],
-										'id_proveedor'  => $param['proveedor'],
-										'doc_respaldo'  => $param['doc_respaldo'],
-								);
-								
-								$updateStock = array(
-									'id_producto' => $param['productos'][$i],
-									'stock'       => $param['cantidades'][$i],
-								);
-
-								          $this->entrada_model->updateStock($updateStock);
-								$result = $this->entrada_model->insert($data_detalle);					
-
-
-							endfor;
-							if($result)
-		             {
-		               $msg['comprobador'] = TRUE;
-		             }
-		         echo json_encode($msg);
-
-				    } else{
-							$msg['validacion'] =  validation_errors('<li>','</li>');
-							echo json_encode($msg);
-						 }
-	      }     
-
-	}
+   
 
 
 	/* Eliminar */
