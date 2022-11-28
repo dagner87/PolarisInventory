@@ -44,6 +44,7 @@ $route['insert_cliente']   = 'cliente/insert';
 $route['update_cliente']   = 'cliente/update';
 $route['delete_cliente']   = 'cliente/delete';
 $route['get_cliente']      = 'cliente/getDatos';
+$route['buscar_clientes']   = 'cliente/search_clientes';
 
 /*--------------------CRUD CATEGORIAS --------------*/
 $route['categoria']        = 'categoria/getAll';

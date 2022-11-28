@@ -25,7 +25,7 @@ class Cliente extends CI_Controller {
 /*----------- CRUD Funcions-----------------------*/ 
     public function getAll()
 	{
-	   $data['titulo']    = 'Administar clientees';
+	   $data['titulo']    = 'Administar clientes';
 	   $data['crud']      = 'cliente';
 	   $data['camino']    = 'insertar';
 	   $this->load->view("layout/head",$data);
@@ -105,6 +105,28 @@ class Cliente extends CI_Controller {
 		{
 			return TRUE;
 		}
+	}
+
+
+
+
+   public function search_clientes( )
+	{
+
+		$cliente  = $this->input->post('cliente');
+		$result = $this->cliente_model->searchCliente($cliente);	
+		
+		if (!empty($result))
+		{
+			foreach ($result as $row){
+				echo "<li><a href='#'>" . $row->nombre_cliente . "</a></li>";
+			}     
+		}
+		else
+		{
+			echo "<li> <em> No se encuentra ... </em> </li>";
+		} 
+		echo json_encode($result);  
 	}
 
 

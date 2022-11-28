@@ -46,11 +46,11 @@
 								<div class="col-md-6">
 										<div class="form-group">
 										<label class="control-label">Producto</label>
-												<select  name="producto_entrada"   id="id_producto_entrada"  class="form-control custom-select" require >
+												<select  name="producto_entrada"   id="id_producto_entrada"  class="form-control custom-select select2" require >
 												<option value=" ">Seleccionar Producto</option>
 														<?php
 															foreach ($productos as $fila):
-																	$dataProducto = $fila->id . "*". $fila->nombre_producto;?>
+																	$dataProducto = $fila->id . "*". $fila->nombre_producto. "*". $fila->stock."*".$fila->precios_costo;?>
 														?>
 															<option value='<?=$dataProducto?>'><?= $fila->nombre_producto ?></option>
 
@@ -62,15 +62,22 @@
 								</div>
 								<!--/span-->
 								<div class="col-md-6">
-							     	<div class="form-group ">
-                                        <label for="cliente">Cliente</label>
-                                        <div id="the-basics"  class="input-group">
-                                            <input type="text" class="form-control" id="cliente" placeholder="Buscar Cliente">
-                                            <div id="searchcliente"  class="input-group-addon btn-success"><i class="ti-search showClientes"></i></div>
+										<div class="form-group">
+										<label class="control-label">Cliente</label>
+												<select  name="cliente"   id="cliente"  class="form-control custom-select select2" require >
+												<option value=" ">Seleccionar Cliente</option>
+														<?php
+															foreach ($clientes as $fila):
+																	
+														?>
+															<option value='<?=$id ?>'><?= $fila->nombre_cliente ?></option>
+
+														<?php
+															endforeach;
+															?>
+												</select>
 										</div>
-										<small class="form-control-feedback">  </small>
-                                    </div>
-								</div>									
+								</div>								
 								<!--/span-->	
 																
 						</div>
@@ -81,7 +88,8 @@
 														<tr>
 															<th>Nombre</th>
 															<th>Cantidad</th>
-															<th>Precio Costo</th>
+															<th>Precio Venta</th>
+															<th>Importe</th>
 															<th>&nbsp;</th>
 														</tr>
 												</thead>
@@ -89,7 +97,25 @@
 
 												</tbody>
 										</table>
+
+										<div class="row">
+										    <div class="col-md-8">&nbsp;</div>
+										
+											<div class="col-md-4 " >
+												<div class="input-group has-success">
+													<span class="input-group-addon">Total:</span>
+													<input type="text" class="form-control" placeholder="0.00" name="total" readonly="readonly">
+												</div>
+											</div>
+										
+
+										</div>
+										
+
+										
 				</div>
+
+
 
 				
 
@@ -103,36 +129,11 @@
 
 
 
-<!-- modal-dialog -->
-<div id="show_modal" class="modal bs-example-modal-lg fade in" 
-         tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div  class="modal-header">
-                    <h4 class="modal-title" id="">Lista de clientes</h4>
-                    <button type="button" class="close cerrar" data-dismiss="modal"  aria-hidden="true">×</button>
-                </div>
 
-				<div class="row">
-					
-				</div>
-
-				
-         
-
-            </div>
-            <!-- /.modal-content -->
-        </div>
-       
-  </div>
- <!-- /.modal-dialog -->
  
 
 <script src="<?php echo base_url();?>plantilla/assets/plugins/select2/dist/js/select2.full.min.js"></script>
-<!-- Typehead Plugin JavaScript -->
-
-<script src="<?php echo base_url();?>plantilla/assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
-<script src="<?php echo base_url();?>plantilla/assets/plugins/typeahead.js-master/dist/typeahead-init.js"></script>
+<script src="<?php echo base_url();?>plantilla/assets/custon_function/ventas.js"></script>
 <script>
 
 
@@ -141,18 +142,20 @@
       $(".select2").select2();
       $("#id_producto_entrada").on("change",function(){
          let data = $(this).val();
-				 console.log(data);
+				
          var option = $(this).find(':selected')[0];//obtiene el producto seleccionado
          $(option).attr('disabled', 'disabled'); // y lo desabilita para no volverlo a seleccionar
 
         if (data !='') {
+			console.log(data);
             infoproducto = data.split("*");
+			
             html = "<tr>";
             html += "<td><input type='hidden' name='idproductos[]' value='"+infoproducto[0]+"'>"+infoproducto[1]+"</td>";
-            html += "<td><input type='text' name='cantidades[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
+            html += "<td><input type='text' name='cantidades[]'  value='"+infoproducto[2]+"' class='cantidades' required data-parsley-minlength="+infoproducto[2]+"></td>";
 
             html += "<td><input type='text' name='precios_venta[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
-
+			html += "<td><input type='hidden' name='importes[]' value=''><p></p></td>";
             html += "<td><button type='button' class='btn btn-danger btn-remove'><span class='fa fa-remove'></span></button></td>";
 
             html += "</tr>";
@@ -163,6 +166,7 @@
             alert("seleccione un producto...");
         }
     });
+
 
 });//fin onready
 

@@ -12,6 +12,7 @@ class Ventas extends CI_Controller {
         $this->load->model('proveedor_model');
         $this->load->model('producto_model');
         $this->load->model('entrada_model');       
+        $this->load->model('cliente_model');       
         $this->load->library('form_validation');
        
          if ($this->session->userdata('perfil') === false || $this->session->userdata('perfil') !== 'administrador') {
@@ -29,7 +30,8 @@ class Ventas extends CI_Controller {
 	   $data['crud']      = 'venta';
 	   $data['camino']    = 'insertar';
 	   $data['proveedores']     = $this->proveedor_model->get_proveedores();
-	   $data['productos']  = $this->producto_model->get_productos();
+	   $data['productos']       = $this->producto_model->get_productos();
+	   $data['clientes']        = $this->cliente_model->get_clientes();
 
 	 
 	   $this->load->view("layout/head",$data);
@@ -177,9 +179,10 @@ class Ventas extends CI_Controller {
 		if ($this->input->is_ajax_request()) 
         {
 
-					$this->form_validation->set_rules('fecha_entrada', 'fecha', 'required');
-					$this->form_validation->set_rules('proveedor', 'Proveedor', 'required');
-					$this->form_validation->set_rules('nombre_archivo', 'Doc Respaldo', 'required');
+					$this->form_validation->set_rules('fecha', 'fecha', 'required');
+					$this->form_validation->set_rules('id_cliente', 'Cliente', 'required');
+					$this->form_validation->set_rules('medio_pago', 'Medio de Pago', 'required');
+
 					$this->form_validation->set_rules('cantidades[]', 'Cantidades', 'required');
 					$this->form_validation->set_rules('precios_costo[]', 'Precio costo', 'required');
 
