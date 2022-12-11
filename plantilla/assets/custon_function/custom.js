@@ -1,12 +1,11 @@
 $(function () {
     "use strict";
 	console.log("cargando funciones custom");
+	$(".select2").select2();
 });
 
 $('#add_form').submit(function(e) {
-	e.preventDefault();
-	//var url    = '<?php echo base_url() ?>insert_entrada';
-	var url_up = '<?php echo base_url() ?>update_prod';
+	e.preventDefault();	
 	var data = $('#add_form').serialize();
 	var camino = $('#camino').val();
 	if (camino == 'insertar')
@@ -178,47 +177,11 @@ $(document).on("click",".btn-inverse",function(){
 });
 
 
-/*-----Eliminar -----*/ 
 
-   $(document).on("click",".eliminar-row-btn", function(){
-	var id = $(this).attr('data');
-	swal({   
-	  title: "¿Estás seguro?",   
-	  text: " El <?= $crud ?> será Eliminará de forma permanente!",   
-	  type: "warning",   
-	  showCancelButton: true,   
-	  confirmButtonColor: "#DD6B55",   
-	  confirmButtonText: "¡Sí, Anuladar!",   
-	  cancelButtonText: "No, cancelar!",   
-	  closeOnConfirm: false,   
-	  closeOnCancel: false 
-	}, function(isConfirm){   
-	  if (isConfirm) {   
-		$(this).closest("tr").remove();
-		$.ajax({
-		  type: 'ajax',
-		  method: 'get',
-		  url: 'delete_entrada',
-		  data: {id: id},
-		  async: false,
-		  dataType: 'json',
-		  success: function(data){
-			//console.log(data);
-			if (data.comprobador) {
-			 swal("Elimiando! ","El <?= $crud ?> ha sido Eliminado.", "success");  
-			 refrescar_tbl();
-		   }
-		 },
-		 error: function(){
-		  alert('No se pudo Eliminar');
-		}
-	  }); 
-	  } else {     
-		swal("Cancelado "," <?= $crud ?>  está seguro", "error");   
-	  } 
-	});
 
-});
+
+
+
 
 
 

@@ -108,6 +108,7 @@
 															<th>Nombre</th>
 															<th>Cantidad</th>
 															<th>Precio Costo</th>
+															<th>Importe</th>
 															<th>&nbsp;</th>
 														</tr>
 												</thead>
@@ -115,6 +116,19 @@
 
 												</tbody>
 										</table>
+
+										<div class="row">
+										    <div class="col-md-8">&nbsp;</div>
+										
+											<div class="col-md-4 " >
+												<div class="input-group has-success">
+													<span class="input-group-addon">Total:</span>
+													<input type="text" class="form-control" placeholder="0.00" name="total" readonly="readonly">
+												</div>
+											</div>
+										
+
+										</div>
 				</div>
 
 				
@@ -130,46 +144,18 @@
 
 <script src="<?php echo base_url();?>plantilla/assets/plugins/select2/dist/js/select2.full.min.js"></script>
 <script src="<?php echo base_url();?>plantilla/assets/custon_function/custom.js"></script>
+<script src="<?php echo base_url();?>plantilla/assets/custon_function/add_entrada.js"></script>
+<script src="<?php echo base_url();?>plantilla/assets/custon_function/sumaCantidad.js"></script>
 
 
 
 
     <script>
-
      $(document).ready(function() {
 
       $(".select2").select2();
-      $("#id_producto_entrada").on("change",function(){
-         let data = $(this).val();
-				 //console.log(data);
-         var option = $(this).find(':selected')[0];//obtiene el producto seleccionado
-         $(option).attr('disabled', 'disabled'); // y lo desabilita para no volverlo a seleccionar
-
-        if (data !='') {
-            infoproducto = data.split("*");
-            html = "<tr>";
-            html += "<td><input type='hidden' name='idproductos[]' value='"+infoproducto[0]+"'>"+infoproducto[1]+"</td>";
-            html += "<td><input type='text' name='cantidades[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
-
-            html += "<td><input type='text' name='precios_costo[]' value='' class='cantidades' required data-parsley-minlength='2'></td>";
-
-            html += "<td><button type='button' class='btn btn-danger btn-remove'><span class='fa fa-remove'></span></button></td>";
-
-            html += "</tr>";
-            $("#tb-entradas tbody").append(html);
-            $("#btn-agregar-entrada").val(null);
-
-        }else{
-            alert("seleccione un producto...");
-        }
-    });
+    
 
      });//fin onready
-
-   
-
-				
-
-
 
     </script>

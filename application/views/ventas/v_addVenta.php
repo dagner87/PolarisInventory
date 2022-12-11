@@ -135,13 +135,13 @@
 
 <script src="<?php echo base_url();?>plantilla/assets/plugins/select2/dist/js/select2.full.min.js"></script>
 <script src="<?php echo base_url();?>plantilla/assets/custon_function/ventas.js"></script>
+<script src="<?php echo base_url();?>plantilla/assets/custon_function/sumaCantidad.js"></script>
 
 <script>
 
 
    $(document).ready(function() {
-
      
 
-});//fin onready
+    });//fin onready
     </script>

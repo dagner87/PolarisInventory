@@ -12,11 +12,12 @@ $(function () {
 
 /*-----Eliminar -----*/ 
 
-$(document).on("click",".eliminar-row-btn",function(){
+
+$(document).on("click",".eliminar-row-btn", function(){
 	var id = $(this).attr('data');
 	swal({   
 	  title: "¿Estás seguro?",   
-	  text: " La entrada será Eliminará de forma permanente!",   
+	  text: " El <?= $crud ?> será Eliminará de forma permanente!",   
 	  type: "warning",   
 	  showCancelButton: true,   
 	  confirmButtonColor: "#DD6B55",   
@@ -37,7 +38,7 @@ $(document).on("click",".eliminar-row-btn",function(){
 		  success: function(data){
 			//console.log(data);
 			if (data.comprobador) {
-			 swal("Elimiando! ","la Entrada ha sido Eliminada.", "success");  
+			 swal("Elimiando! ","El <?= $crud ?> ha sido Eliminado.", "success");  
 			 refrescar_tbl();
 		   }
 		 },
@@ -46,12 +47,11 @@ $(document).on("click",".eliminar-row-btn",function(){
 		}
 	  }); 
 	  } else {     
-		swal("Cancelado "," la Entrada  está segura", "error");   
+		swal("Cancelado "," <?= $crud ?>  está seguro", "error");   
 	  } 
 	});
 
 });
-
 
 
 

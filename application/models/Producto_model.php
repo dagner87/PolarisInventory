@@ -14,14 +14,24 @@ class Producto_model extends CI_Model {
 	public function get_productos()
 	{  
 		//$this->db->select_max('ent.precios_costo', 'precios_costo');
-		$this->db->select("p.id,p.nombre_producto,p.estado ,p.peso_neto, stk.stock stock, ent.precios_costo precios_costo");
+		/* $this->db->select("p.id,p.nombre_producto,p.estado ,p.peso_neto, stk.stock stock, ent.precio_costo precios_costo");
 		$this->db->join('productos_stock stk', 'stk.id_producto  = p.id');
-		$this->db->join('entrada_productos ent', 'ent.id_producto  = p.id');
-		$this->db->where('stock >', 0);
+		$this->db->join('detalle_entrada ent', 'ent.id_producto  = p.id');
+		$this->db->where('stock >', 0); */
 		$this->db->where('p.estado', 'activo');		
 	   $resultados = $this->db->get("producto p");
      return $resultados->result();
 	}
+
+
+	public function get_listproductos()
+	{  
+	  $resultados = $this->db->get("producto p");
+     return $resultados->result();
+	}
+
+
+
 
 
 	 public function get_emp_are($id_area)

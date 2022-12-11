@@ -13,9 +13,9 @@ class Entrada_model extends CI_Model {
 
    public function getAll()
 	{
-		
-		$this->db->join("producto p","ent.id_producto = p.id");	
-	   $resultados = $this->db->get("entrada_productos ent");	
+		$this->db->select("ent.*,prov.nombre_prove");
+		$this->db->join("proveedor prov","prov.id = ent.id_proveedor");	
+	    $resultados = $this->db->get("entrada ent");	
      return $resultados->result();
 	}
 
@@ -34,27 +34,36 @@ class Entrada_model extends CI_Model {
 	public function getDatos($id)
     {
      $this->db->where('id',$id);
-     $query  = $this->db->get('entrada_productos');
+     $query  = $this->db->get('entrada');
      return $query->row();
     }
 
+
+	public function lastID(){
+		return $this->db->insert_id();
+	}
 
 	
 	public function insert($data)
 	{
 
-       $this->db->insert('entrada_productos',$data);
+       $this->db->insert('entrada',$data);
 	    if($this->db->affected_rows() > 0){
 	        return true;
 	       }else{
 	             return false;
 	            }      
-	}	 
+	}	
+	
+	public function save_detalle($data){
+		return $this->db->insert("detalle_entrada",$data);
+	}
+
 	
   	public function update($data)
 	{
 		$this->db->where('id',$data['id']);    
-        $this->db->update('entrada_productos',$data);
+        $this->db->update('entrada',$data);
         if($this->db->affected_rows() > 0){
           return true;        
         }else{
@@ -66,7 +75,7 @@ class Entrada_model extends CI_Model {
 	public function delete($id)
 	{
 		$this->db->where('id',$id);
-		$this->db->delete('entrada_productos');
+		$this->db->delete('entrada');
 		if($this->db->affected_rows() > 0){
 			return true;
 		  }else{
@@ -119,15 +128,15 @@ class Entrada_model extends CI_Model {
 	{
 		$data['year'] = date('Y');
 		
-		$this->db->select_sum('precios_costo');       
-        $this->db->where('YEAR(fecha_entrada)', $data['year']);        
-        $this->db->from('entrada_productos');
+		$this->db->select_sum('total');       
+        $this->db->where('YEAR(fecha)', $data['year']);        
+        $this->db->from('entrada');
 
         $query = $this->db->get();
-        if ($query->row()->precios_costo == null) {
+        if ($query->row()->total == null) {
             return 0;
         }
-        return $query->row()->precios_costo;
+        return $query->row()->total;
 		
 	}
 

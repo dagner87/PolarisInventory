@@ -32,9 +32,18 @@
 
     <script src="<?= base_url() ?>plantilla/assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?= base_url() ?>plantilla/assets/plugins/bootstrap/js/popper.min.js"></script>
+   
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	
+	<script src="<?= base_url() ?>plantilla/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="<?= base_url() ?>plantilla/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	
+	  <!--This page css - Morris CSS -->
+	  <link href="<?= base_url() ?>plantilla/assets/plugins/morrisjs/morris.css" rel="stylesheet" />
 
+
+
+	
 
 
      

@@ -31,6 +31,7 @@ class Panel_admin extends CI_Controller {
 		$this->load->view("layout/head",$data);
 		$this->load->view("layout/menu",$data);
 		$this->load->view("layout/dashboard",$data);
+		$this->load->view("reportes/graficas",$data);
 	    $this->load->view("layout/footer");
     }
 

@@ -31,8 +31,8 @@ class Entradas extends CI_Controller {
 	   $data['titulo']    = 'Administar Entradas';
 	   $data['crud']      = 'entradas';
 	   $data['camino']    = 'insertar';
-		 $data['proveedores']     = $this->proveedor_model->get_proveedores();
-		 $data['productos']  = $this->producto_model->get_productos();
+	   $data['proveedores']     = $this->proveedor_model->get_proveedores();
+	   $data['productos']       = $this->producto_model->get_productos();
 
 	 
 	   $this->load->view("layout/head",$data);
@@ -75,10 +75,10 @@ class Entradas extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->fecha_entrada.'</td>';
-	        $output .= '<td>'.$row->nombre_producto.' </td>';
-	        $output .= '<td>'.$row->cantidad.' </td>';
-	        $output .= '<td> $'.$row->precios_costo.' </td>';
+	        $output .= '<td>'.$row->fecha.'</td>';
+	        $output .= '<td>'.$row->invoice.' </td>';
+	        $output .= '<td>'.$row->nombre_prove.' </td>';
+	        $output .= '<td> $'.$row->total.' </td>';
 	        $output .= '<td> 
 					<button data="'.$row->doc_respaldo.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
 					
@@ -196,16 +196,19 @@ class Entradas extends CI_Controller {
            if ($this->form_validation->run() === TRUE) 
             {
 							$msg['comprobador']      = FALSE;
+
 							$param['fecha']          = $this->input->post('fecha_entrada');
+							$param['proveedor']      = $this->input->post('proveedor');
 							$param['cantidades']     = $this->input->post('cantidades');
 							$param['productos']      = $this->input->post('idproductos');
-							$param['proveedor']      = $this->input->post('proveedor');
-
-							$param['invoice']      = $this->input->post('invoice');
+							$param['total']          = $this->input->post('total');
+							
+							$param['invoice']       = $this->input->post('invoice');
 							$param['shipping']      = $this->input->post('shipping');
-
-							$param['precios_costo']  = $this->input->post('precios_costo');
-							$param['doc_respaldo']   = $this->input->post('nombre_archivo');
+							
+							$param['importes']       = $this->input->post('importes');
+							$param['precio_costo']  = $this->input->post('precios_costo');
+							$param['doc_respaldo']  = $this->input->post('nombre_archivo');
 
                             if ($param['shipping'] > 0) {
 
@@ -222,16 +225,30 @@ class Entradas extends CI_Controller {
 								$resp = 	$this->gasto_model->insert($gastos_envio);	
 							}
 
+						// Entrada 
+						      $new_entrada = array (
+								'fecha'         => $param['fecha'],
+								'id_proveedor'  => $param['proveedor'],
+								'doc_respaldo'  => $param['doc_respaldo'],
+								'invoice'       => $param['invoice'],
+								'total'          => $param['total']
+								
+							  );
+							  
+							  if ($this->entrada_model->insert($new_entrada)) {
+								$id_entrada  = $this->entrada_model->lastID();
+							}
+
+
+
 							for ($i = 0; $i < count($param['productos']); $i++) :
 
 								$data_detalle = array(
-										'fecha_entrada' => $param['fecha'],
+									    'id_entrada'    => $id_entrada,
 										'id_producto'   => $param['productos'][$i],
 										'cantidad'      => $param['cantidades'][$i],
-										'precios_costo' => $param['precios_costo'][$i],
-										'id_proveedor'  => $param['proveedor'],
-										'doc_respaldo'  => $param['doc_respaldo'],
-										'invoice'       => $param['invoice'],
+										'precio_costo'  => $param['precio_costo'][$i],
+										'importe'       => $param['importes'][$i],
 										
 								);								
 								
@@ -242,7 +259,7 @@ class Entradas extends CI_Controller {
 
 								 /* Actualizo el stock */
 								 $this->entrada_model->updateStock($updateStock);
-								$result = $this->entrada_model->insert($data_detalle);					
+								$result = $this->entrada_model->save_detalle($data_detalle);					
 
 
 							endfor;

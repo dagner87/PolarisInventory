@@ -37,7 +37,7 @@ class Producto extends CI_Controller {
 
 	function load_productos()
 	{
-	    $result = $this->producto_model->get_productos();
+	    $result = $this->producto_model->get_listproductos();
 	    $count = 0;
 	    $output = '';
 	    if(!empty($result))
@@ -76,7 +76,7 @@ class Producto extends CI_Controller {
 
           $this->form_validation->set_rules('nombre_producto', 'Nombre Producto', 'required');
           $this->form_validation->set_rules('nombre_producto', 'Nombre del Producto', 'callback_producto_check');
-          $this->form_validation->set_rules('proveedor', 'proveedor', 'required');
+         // $this->form_validation->set_rules('proveedor', 'proveedor', 'required');
           $this->form_validation->set_rules('categoria', 'Categoria', 'required');
           $this->form_validation->set_rules('peso_neto', 'Peso Neto', 'required');
           $this->form_validation->set_rules('genero', 'genero', 'required');
@@ -85,7 +85,7 @@ class Producto extends CI_Controller {
           if ($this->form_validation->run() === TRUE) 
             {
 	          $param['nombre_producto']  = $this->input->post('nombre_producto');
-			  $param['id_proveedor']     = $this->input->post('proveedor');
+			  //$param['id_proveedor']     = $this->input->post('proveedor');
 			  $param['id_categoria']     = $this->input->post('categoria');
 			  $param['description']      = $this->input->post('description');
 			  $param['peso_neto']        = $this->input->post('peso_neto');

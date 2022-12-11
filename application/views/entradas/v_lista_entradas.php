@@ -9,9 +9,9 @@
             <thead>
                 <tr>
               		<th>Fecha entrada </th>
-									<th>Producto</th>
-									<th>Cantidad</th>
-									<th>Precio Costo</th>
+									<th>#Factura Provedor</th>							
+									<th>Proveedor</th>
+									<th>Total</th>							
 									<th>Doc Respaldo </th>
 									<th>Acción</th>                  
                 </tr>
@@ -40,9 +40,9 @@
 		console.log('cancele el modal');
 				$("#msg-error").hide();
 				$("#list_errorsA").empty();
-		$('#camino').val();
-		$('#tituloLabel').text(''); 
-		$("#add_form")[0].reset();       
+				$('#camino').val();
+				$('#tituloLabel').text(''); 
+				$("#add_form")[0].reset();       
     });
    
     
