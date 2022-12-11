@@ -89,6 +89,12 @@ $route['anular_venta']  = 'ventas/update';
 
 
 
+/*--------------------Reportes --------------*/
+
+$route['donut_generostock']  = 'reporte/reportex_genero';
+
+
+
 
 /*------------------**** RUTAS DEPRECATE ***** --------------*/
 
