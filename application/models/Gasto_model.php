@@ -14,7 +14,9 @@ class Gasto_model extends CI_Model {
 
    public function getAll()
 	{
-	 $resultados = $this->db->get("gastos");
+		
+	 $this->db->select("g.*,DATE_FORMAT(g.fecha,'%b,%d/%Y') as fecha");
+	 $resultados = $this->db->get("gastos g");
      return $resultados->result();
 	}
 

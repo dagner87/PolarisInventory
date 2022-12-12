@@ -40,7 +40,7 @@ class Gasto extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->fecha.'</td>';
+	        $output .= '<td><a href="javascript:void(0)">'.$row->fecha.'</a></td>';
 	        $output .= '<td>'.$row->concepto.'</td>';
 	        $output .= '<td> $'.$row->monto.'</td>';
 	        $output .= ' <td class="text-nowrap">
