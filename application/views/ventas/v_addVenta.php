@@ -12,7 +12,7 @@
 		<form action="" method="POST"  id="add_form"  >
 		<input type="hidden" name="camino" id="camino" value="<?= $camino ?>">
 				<div class="form-body">
-						<h3 class="card-title">Nueva <?= $crud ?></h3>
+						<h3 class="card-title">Nueva <?= $crud ?> # <?= $numero_correlativo ?></h3>
 						<hr>
 						<!--/row-->
 						<div class="row">
@@ -20,7 +20,7 @@
 							  <div class="col-md-6">
 										<div class="form-group">
 												<label class="control-label">Fecha </label>
-												<input type="date" name="fecha" class="form-control" value="<?= date('Y-m-d') ?>" placeholder="mm/dd/yyyy">
+												<input type="date" name="fecha" class="form-control" value="<?= date('mm-dd-yyyy') ?>" placeholder="mm/dd/yyyy">
 										</div>
 								</div>
 								<!--/span-->

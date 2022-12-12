@@ -295,10 +295,15 @@ class Ventas_model extends CI_Model {
 		return $resultados->result();
 	}
 
-	public function getComprobante($idcomprobante){
-		$this->db->where("id",$idcomprobante);
-		$resultado = $this->db->get("tipo_comprobante");
-		return $resultado->row();
+
+
+
+	public function getDetalleVentas($id){
+		$this->db->select("dtv.*,p.nombre_producto");
+		$this->db->join("producto p","dtv.producto_id = p.id");
+		$this->db->where("dtv.venta_id",$id);
+		$resultados = $this->db->get('detalle_venta dtv');
+		return $resultados->result();
 	}
 
 /*-------------stock de productos de almacen_clientes-----*/
@@ -470,11 +475,52 @@ public function getProductos_stockAlmacen($id_almacen){
         }
     }
 
+	public function getCorrelativo(){
+		$query =  $this->db->get('dosificacion');  		
+		$dato['parametro'] =  $query->row();
+	    $valor = $dato['parametro']->no_order + 1;
+	    $i = 8;
+	    $no_order = trim(str_pad($valor, $i, 0, STR_PAD_LEFT));
+	    return  $no_order;
+	    // echo json_encode($no_propuesta);
+	}
+
+
+	public function updateDocificacion()
+	{
+		$query =  $this->db->get('dosificacion');  		
+		$dato['parametro'] =  $query->row();
+	    $valor = $dato['parametro']->no_order + 1;	
+		
+		$this->db->set('no_order', $valor, FALSE);    
+        $this->db->update('dosificacion');
+      
+    
+	}
+
+
+	public function totaVentas()
+	{
+		$data['year'] = date('Y');
+		
+		$this->db->select_sum('total');       
+        $this->db->where('estado', 'exitosa');        
+        $this->db->where('YEAR(fecha)', $data['year']);        
+        $this->db->from('ventas');
+
+        $query = $this->db->get();
+        if ($query->row()->total == null) {
+            return 0;
+        }
+        return $query->row()->total;
+		
+	}
+
 
 	public function getAll()
 	{
 	
-		$this->db->select("v.id id, v.fecha, c.nombre_cliente, v.medio_pago, v.total, v.estado");
+		$this->db->select("v.id id,DATE_FORMAT(v.fecha,'%b,%d/%Y') as fecha, c.nombre_cliente, v.medio_pago, v.total, v.estado");
 		$this->db->join("cliente c","c.id = v.id_cliente");		
 		$this->db->where("estado =",'exitosa');
 	   $resultados = $this->db->get("ventas v");	

@@ -1,4 +1,4 @@
-
+<div class="row">
 <!-- column -->
 <div class="col-lg-6">
 	<div class="card">
@@ -13,6 +13,20 @@
 
 
 <!-- column -->
+<div class="col-lg-6">
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">Bar Chart</h4>
+			<div>
+				<canvas id="chart2" height="150"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- column -->
+
+</div>
+<!-- row -->
    <!-- This page plugins -->
     <!-- ============================================================== -->
     <!-- Chart JS -->

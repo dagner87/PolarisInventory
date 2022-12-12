@@ -213,7 +213,7 @@ class Entradas extends CI_Controller {
                             if ($param['shipping'] > 0) {
 
 								$row = $this->proveedor_model->getDatos($param['proveedor']);
-								$concepto = "(SHIPPING)({$row->nombre_prove})Invoice{$param['invoice']}";
+								$concepto = "(SHIPPING) ({$row->nombre_prove})Invoice - {$param['invoice']}";
 	
 									$gastos_envio  = array(
 										'concepto'  => $concepto,

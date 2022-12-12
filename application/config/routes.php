@@ -86,6 +86,7 @@ $route['ventas']        = 'ventas/addVenta';
 $route['lista_ventas']  = 'ventas/getventas';
 $route['get_ventas']    = 'ventas/load_ventas';
 $route['anular_venta']  = 'ventas/update';
+$route['view_detalleV']  = 'ventas/getDetalleVenta';
 
 
 

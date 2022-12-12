@@ -33,8 +33,11 @@ class Ventas extends CI_Controller {
 	   $data['crud']      = 'venta';
 	   $data['camino']    = 'insertar';
 	   $data['proveedores']     = $this->proveedor_model->get_proveedores();
-	   $data['productos']       = $this->producto_model->get_productos();
+	   $data['productos']       = $this->producto_model->get_productosStock();
 	   $data['clientes']        = $this->cliente_model->get_clientes();
+	   $data['numero_correlativo']   = $this->ventas_model->getCorrelativo();
+					
+	   
 
 	 
 	   $this->load->view("layout/head",$data);
@@ -80,13 +83,17 @@ class Ventas extends CI_Controller {
 					$msg['comprobador']      = FALSE;
 					
 					/* venta */
-					$param['fecha']        = $this->input->post('fecha');
-					$param['id_cliente']   = $this->input->post('cliente');
-					$param['medio_pago']   = $this->input->post('medio_pago');
-					$param['total']        = $this->input->post('total');
+					$param['fecha']                = $this->input->post('fecha');
+					$param['id_cliente']           = $this->input->post('cliente');
+					$param['medio_pago']           = $this->input->post('medio_pago');
+					$param['numero_correlativo']   = $this->ventas_model->getCorrelativo();
+					$param['total']                = $this->input->post('total');
 
 					if ($this->ventas_model->save_venta($param)) {
 						$venta_id  = $this->ventas_model->lastID();
+						//aumtento el correlativo						
+						$this->ventas_model->updateDocificacion();
+
 					}	
 					
 
@@ -142,12 +149,12 @@ class Ventas extends CI_Controller {
 	      foreach($result as $row)
 	      {  
 	        $output .= '<tr>';
-	        $output .= '<td>'.$row->fecha.'</td>';
+	        $output .= '<td><a href="javascript:void(0)">'.$row->fecha.'</a></td>';
 	        $output .= '<td>'.$row->nombre_cliente.' </td>';
 	        $output .= '<td>'.$row->medio_pago.' </td>';
 	        $output .= '<td>'.$row->total.' </td>';
 	        $output .= '<td> 
-					<button title="Detalle de venta" data="'.$row->id.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
+					<button title="Detalle de venta" data="'.$row->id.'*'.$row->nombre_cliente.'" data-toggle="modal"  class="btn btn-success btn-circle btn-detalle" type="button"><span class="btn-label"><i class="fa fa-paperclip m-r-10 m-b-10"></i></span></button>
 					
 					 </td>';
 	        $output .= ' <td class="text-nowrap">	                       
@@ -158,6 +165,37 @@ class Ventas extends CI_Controller {
 	       }
 		       
 	  		}
+	    echo $output;
+	}
+
+
+	function getDetalleVenta()
+	{   $id        = $this->input->get('id');
+	    $result = $this->ventas_model->getDetalleVentas($id);			
+	    $total = 0;
+	    $output = '';
+	    if(!empty($result))
+	    {
+			foreach($result as $row):
+			  
+				$output .='<tr>';
+				$output .='<td><a href="javascript:void(0)">'.$row->nombre_producto.'</a></td>';
+				$output .='<td>'.$row->cantidad.'</td>';
+				$output .='<td>$'.$row->precio.'</td>';
+				$output .='<td>$'.$row->importe.'</td>';
+				$output .='</tr>';
+                $total += $row->importe;
+			endforeach;
+			$output .='<tr style="color:black;font-weight:bold">';
+			$output .='<td>Total</td>';
+			$output .='<td></td>';
+			$output .='<td></td>';
+			$output .='<td > $'.number_format($total,2,",",".").'</td>';
+			
+			$output .='<tr>';
+
+		       
+	    }
 	    echo $output;
 	}
 
