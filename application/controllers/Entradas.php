@@ -80,7 +80,7 @@ class Entradas extends CI_Controller {
 	        $output .= '<td>'.$row->nombre_prove.' </td>';
 	        $output .= '<td> $'.$row->total.' </td>';
 	        $output .= '<td> 
-					<button data="'.$row->doc_respaldo.'" class="btn btn-success btn-circle" type="button"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span></button>
+					<button data="'.$row->doc_respaldo.'" class="attach btn btn-success btn-circle" type="button"><span class="btn-label "><i class="fa fa-file-pdf-o"></i></span></button>
 					
 					 </td>';
 	        $output .= ' <td class="text-nowrap">	                       

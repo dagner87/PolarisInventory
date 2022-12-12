@@ -152,7 +152,7 @@ class Ventas extends CI_Controller {
 	        $output .= '<td><a href="javascript:void(0)">'.$row->fecha.'</a></td>';
 	        $output .= '<td>'.$row->nombre_cliente.' </td>';
 	        $output .= '<td>'.$row->medio_pago.' </td>';
-	        $output .= '<td>'.$row->total.' </td>';
+	        $output .= '<td>$'.$row->total.' </td>';
 	        $output .= '<td> 
 					<button title="Detalle de venta" data="'.$row->id.'*'.$row->nombre_cliente.'" data-toggle="modal"  class="btn btn-success btn-circle btn-detalle" type="button"><span class="btn-label"><i class="fa fa-paperclip m-r-10 m-b-10"></i></span></button>
 					
@@ -190,7 +190,7 @@ class Ventas extends CI_Controller {
 			$output .='<td>Total</td>';
 			$output .='<td></td>';
 			$output .='<td></td>';
-			$output .='<td > $'.number_format($total,2,",",".").'</td>';
+			$output .='<td> $'.number_format($total,2,",",".").'</td>';
 			
 			$output .='<tr>';
 
