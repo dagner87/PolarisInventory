@@ -16,7 +16,7 @@
 <div class="col-lg-6">
 	<div class="card">
 		<div class="card-body">
-			<h4 class="card-title">Bar Chart</h4>
+			<h4 class="card-title">Ventas mensuales</h4>
 			<div>
 				<canvas id="chart2" height="150"></canvas>
 			</div>

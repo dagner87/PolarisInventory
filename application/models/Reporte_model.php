@@ -42,6 +42,8 @@ class Reporte_model extends CI_Model {
 		
 	}
 
+	
+
 
 
 	

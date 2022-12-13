@@ -528,11 +528,6 @@ public function getProductos_stockAlmacen($id_almacen){
 	}
 
 
-	/*----------guarda los datos de donde fueron las guias-------*/
-	public function save_datosGuia($data){
-		return $this->db->insert("distribucion_guia",$data);
-	}
-
 	public function updateComprobante($idcomprobante,$data){
 		$this->db->where("id",$idcomprobante);
 		$this->db->update("tipo_comprobante",$data);

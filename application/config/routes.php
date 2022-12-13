@@ -93,6 +93,7 @@ $route['view_detalleV']  = 'ventas/getDetalleVenta';
 /*--------------------Reportes --------------*/
 
 $route['donut_generostock']  = 'reporte/reportex_genero';
+$route['ventas_mensual']     = 'reporte/getData';
 
 
 

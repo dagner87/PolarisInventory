@@ -31,6 +31,8 @@ class Panel_admin extends CI_Controller {
 	   $data['totalInventario']   =   $this->entrada_model->totalInventario();
 	   $data['totalVentas']       =   $this->ventas_model->totaVentas();
 
+	   $data['ganaciasBrutas']   =  $data['totalVentas'] - ($data['totalGastos'] +   $data['totalInventario']);
+
 	   //var_dump($data['x_genero']);
 	   
 		$this->load->view("layout/head",$data);
