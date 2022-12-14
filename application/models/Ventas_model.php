@@ -556,6 +556,7 @@ public function getProductos_stockAlmacen($id_almacen){
 		$this->db->from("ventas");
 		$this->db->where("fecha >=",$year."-01-01");
 		$this->db->where("fecha <=",$year."-12-31");
+		$this->db->where("estado","exitosa");
 		$this->db->group_by("mes");
 		$this->db->order_by("mes");
 		$resultados = $this->db->get();
