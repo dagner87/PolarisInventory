@@ -12,7 +12,7 @@
 		<form action="" method="POST"  id="add_form"  >
 		<input type="hidden" name="camino" id="camino" value="<?= $camino ?>">
 				<div class="form-body">
-						<h3 class="card-title">Nueva <?= $crud ?> # <?= $numero_correlativo ?></h3>
+						<h3 id="num_correlativo" class="card-title">Nueva <?= $crud ?> # <?= $numero_correlativo ?></h3>
 						<hr>
 						<!--/row-->
 						<div class="row">

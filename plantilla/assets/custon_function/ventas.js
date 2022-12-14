@@ -24,8 +24,10 @@ $('#add_form').submit(function(e) {
 			   })
 				.done(function(data){
 				   if (data.comprobador){
+					console.log(data);
 					
 					 $("#add_form")[0].reset();
+					 $("#num_correlativo").html("Nueva venta: #"+data.numero_correlativo);
 					 $.toast({
 							heading: '<?= $crud ?> Agregado',
 							text: 'Se agregó correctamente la información.',
@@ -36,6 +38,7 @@ $('#add_form').submit(function(e) {
 							stack: 6
 						});
 						$('#contenido_tbl').empty(); 
+						 
 
 					} else {
 					   $("#msg-error").show();

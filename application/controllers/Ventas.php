@@ -128,6 +128,8 @@ class Ventas extends CI_Controller {
 					if($result)
 			{
 			$msg['comprobador'] = TRUE;
+			$msg['numero_correlativo']   = $this->ventas_model->getCorrelativo();
+
 			}
 			echo json_encode($msg);
 
