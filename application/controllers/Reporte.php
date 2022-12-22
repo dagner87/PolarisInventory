@@ -20,6 +20,19 @@ class Reporte extends CI_Controller {
        }
     }
 
+
+
+	public function view_reportes()
+	{
+	   $data['titulo']    = 'Reportes';
+	   $data['crud']      = '';
+	   $data['camino']    = '';
+	   $this->load->view("layout/head",$data);
+	   $this->load->view("layout/menu");
+	   $this->load->view("reportes/reportes",$data);
+	   $this->load->view("layout/footer");
+    }  
+
 	
 	public function reportex_genero()
 	{
@@ -36,6 +49,9 @@ class Reporte extends CI_Controller {
 		$resultados = $this->ventas_model->montos($year);
 		echo json_encode($resultados);
 	}
+
+
+
 
 
 

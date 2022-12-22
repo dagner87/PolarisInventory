@@ -24,6 +24,8 @@ class Entrada_model extends CI_Model {
 	{
 		$this->db->join("categoria c","stk.id_categoria = c.id");
 		$this->db->join("producto p","stk.id_producto = p.id");
+		$this->db->where('stk.stock >',0);
+		$this->db->where('stk.estado','activo');
 	    $resultados = $this->db->get("productos_stock stk");	
 	 
      return $resultados->result();
