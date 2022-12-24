@@ -7,10 +7,9 @@
             <thead>
                 <tr>
                     <th>Producto </th>
-											<th>Genero </th>
-											<th>Stock </th>									
-											<th>Estado </th>
-                                   
+					<th>Genero </th>
+					<th>Cantidad </th>	
+			
                 </tr>
             </thead>
             <tbody id="contenido_tbl">
@@ -58,8 +57,8 @@
     function load_tabla()
     {
         $.ajax({
-            url:"<?php echo base_url(); ?>lista_stocks",
-            method:"post",
+            url:"<?php echo base_url(); ?>prod_more_sell",
+            method:"get",
             success:function(data)
             {
              $('#contenido_tbl').html(data);

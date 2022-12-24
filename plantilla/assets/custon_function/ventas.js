@@ -67,9 +67,8 @@ $("#id_producto_entrada").on("change",function(){
    $(option).attr('disabled', 'disabled'); // y lo desabilita para no volverlo a seleccionar
 
   if (data !='') {
-	  console.log(data);
-	  infoproducto = data.split("*");
 	  
+	  infoproducto = data.split("*");	  
 	  html = "<tr>";
 	  html += "<td><input type='hidden' name='idproductos[]' value='"+infoproducto[0]+"'>"+infoproducto[1]+"</td>";
 	  html += "<td><input type='text' name='cantidades[]'  value='"+infoproducto[2]+"' class='cantidades' required data-parsley-minlength="+infoproducto[2]+"></td>";

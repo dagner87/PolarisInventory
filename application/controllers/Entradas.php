@@ -106,7 +106,7 @@ class Entradas extends CI_Controller {
 	      {  
 	        $output .= '<tr>';
 	        $output .= '<td>'.$row->nombre_producto.'</td>';
-	        //$output .= '<td>'.$row->nombre.' </td>';
+	        $output .= '<td>'.$row->genero.' </td>';
 	        $output .= '<td>'.$row->stock.' </td>';	        
 			if($row->estado == 'activo'){
 				$output .='<td><span class="label label-success">Activo</span></td>';

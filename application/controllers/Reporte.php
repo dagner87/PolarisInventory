@@ -33,6 +33,18 @@ class Reporte extends CI_Controller {
 	   $this->load->view("layout/footer");
     }  
 
+
+	public function view_moreSell()
+	{
+	   $data['titulo']    = 'Productos Mas Vendidos';
+	   $data['crud']      = '';
+	   $data['camino']    = '';
+	   $this->load->view("layout/head",$data);
+	   $this->load->view("layout/menu");
+	   $this->load->view("reportes/mas_vendidos",$data);
+	   $this->load->view("layout/footer");
+    } 
+
 	
 	public function reportex_genero()
 	{
@@ -49,6 +61,29 @@ class Reporte extends CI_Controller {
 		$resultados = $this->ventas_model->montos($year);
 		echo json_encode($resultados);
 	}
+
+
+	function getMoreSell()
+	{
+	    $result = $this->reporte_model->getMoreSell();			
+	    $count = 0;
+	    $output = '';
+	    if(!empty($result))
+	    {
+	      foreach($result as $row)
+	      {  
+	        $output .= '<tr>';
+	        $output .= '<td>'.$row->nombre_producto.'</td>';
+	        $output .= '<td>'.$row->genero.' </td>';
+	        $output .= '<td>'.$row->cantidad.' </td>';	        
+			$output .= '</tr>';
+	       }
+		       
+	  		}
+	    echo $output;
+	}
+
+
 
 
 

@@ -156,7 +156,7 @@ class Ventas extends CI_Controller {
 	        $output .= '<td>'.$row->medio_pago.' </td>';
 	        $output .= '<td>$'.$row->total.' </td>';
 	        $output .= '<td> 
-					<button title="Detalle de venta" data="'.$row->id.'*'.$row->nombre_cliente.'" data-toggle="modal"  class="btn btn-success btn-circle btn-detalle" type="button"><span class="btn-label"><i class="fa fa-paperclip m-r-10 m-b-10"></i></span></button>
+					<button title="Detalle de venta" data="'.$row->id.'*'.$row->nombre_cliente.'*'.$row->fecha.'" data-toggle="modal"  class="btn btn-success btn-circle btn-detalle" type="button"><span class="btn-label"><i class="fa fa-paperclip m-r-10 m-b-10"></i></span></button>
 					
 					 </td>';
 	        $output .= ' <td class="text-nowrap">	                       

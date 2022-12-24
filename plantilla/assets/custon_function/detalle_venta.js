@@ -7,6 +7,8 @@ $(function () {
 $(document).on("click",".btn-detalle",function(){	
 	var data = $(this).attr('data');
         info = data.split("*");
+		console.log(info);
+		$('#fechaLabel').text('Fecha: '+info[2]);	
          $('#tituloLabel').text('Cliente: '+info[1]);	
 		$('#show_modal').modal('show');		
 		   $.ajax({

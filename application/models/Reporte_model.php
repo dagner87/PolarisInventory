@@ -26,6 +26,26 @@ class Reporte_model extends CI_Model {
 	}
 
 
+	/* SELECT p.nombre_producto, COUNT(dv.cantidad)
+	 FROM `detalle_venta` dv 
+	 JOIN producto p 
+	 ON p.id = dv.producto_id 
+	 GROUP BY dv.producto_id; */
+
+	public function getMoreSell(){
+		$this->db->select('p.nombre_producto,p.genero, count(dv.cantidad) as cantidad');
+		$this->db->from('detalle_venta as dv');
+		$this->db->join("producto p","dv.producto_id = p.id");
+		$this->db->group_by("dv.producto_id");
+		$query = $this->db->get();		
+		
+	  return $query->result();
+	}
+
+
+	
+
+
 	public function totalGastos()
 	{
 		$data['year'] = date('Y');
