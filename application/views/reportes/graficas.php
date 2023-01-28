@@ -3,7 +3,7 @@
 <div class="col-lg-6">
 	<div class="card">
 		<div class="card-body">
-			<h4 class="card-title">PERFUMES POR GENERO EN STOCK</h4>
+			<h4 class="card-title">PERFUMES POR GENERO EN STOCK :  <?= $total_stock ?></h4>
 			<div>
 				<canvas id="chart4" height="150"> </canvas>
 			</div>

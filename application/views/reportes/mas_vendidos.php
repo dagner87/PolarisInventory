@@ -64,6 +64,7 @@
              $('#contenido_tbl').html(data);
                var table = $('#tbl_contenedora').DataTable({
                  responsive: true,
+								 order: [[2, 'desc']],
                  language: {
                               "lengthMenu": "Mostrar _MENU_ registros por pagina",
                               "zeroRecords": "No se encontraron resultados en su busqueda",

@@ -142,6 +142,22 @@ class Entrada_model extends CI_Model {
 		
 	}
 
+	/* SELECT sum(`stock`) total FROM `productos_stock` WHERE estado ='activo';  */
+	public function cantidadInventario()
+	{
+		
+		$this->db->select_sum('stock');       
+        $this->db->where('estado', 'activo');        
+        $this->db->from('productos_stock');
+
+        $query = $this->db->get();
+        if ($query->row()->stock == null) {
+            return 0;
+        }
+        return $query->row()->stock;
+		
+	}
+
 
 	
 }

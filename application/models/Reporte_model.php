@@ -33,7 +33,7 @@ class Reporte_model extends CI_Model {
 	 GROUP BY dv.producto_id; */
 
 	public function getMoreSell(){
-		$this->db->select('p.nombre_producto,p.genero, count(dv.cantidad) as cantidad');
+		$this->db->select('p.nombre_producto,p.genero, sum(dv.cantidad) as cantidad');
 		$this->db->from('detalle_venta as dv');
 		$this->db->join("producto p","dv.producto_id = p.id");
 		$this->db->group_by("dv.producto_id");
