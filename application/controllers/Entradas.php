@@ -104,7 +104,9 @@ class Entradas extends CI_Controller {
 	    {
 	      foreach($result as $row)
 	      {  
-	        $output .= '<tr>';
+			$count++;
+	        $output .= '<tr>'; 
+	        $output .= '<td><span class="round"><img src="assets/images/no-image.png" alt="avatar" width="50"></span></td>';
 	        $output .= '<td>'.$row->nombre_producto.'</td>';
 	        $output .= '<td>'.$row->genero.' </td>';
 	        $output .= '<td>'.$row->stock.' </td>';	        

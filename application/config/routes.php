@@ -22,12 +22,14 @@ $route['get_obj_emp']  = 'panel_admin/get_obj_emp';
 
 
 /*---------------CRUD PRODUCTOS----------------------*/
+
 $route['productos']      = 'producto/get_empleados';
 $route['list_productos'] = 'producto/load_productos';
 $route['insert_prod']    = 'producto/insert';
 $route['update_prod']    = 'producto/update';
 $route['delete_prod']    = 'producto/delete';
 $route['get_prod']       = 'producto/getdatos';
+$route['upload_image']   = 'producto/upload_image';
 
 /*--------------------CRUD PROVEEDORES --------------*/
 $route['proveedor']         = 'proveedor/get_proveedores';

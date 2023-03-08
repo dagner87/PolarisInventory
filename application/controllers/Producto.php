@@ -198,4 +198,26 @@ class Producto extends CI_Controller {
        echo json_encode($data);
     }
 
+
+	public function upload_image()
+	{
+			$config['upload_path']   = 'assets/images';
+			$config['allowed_types'] = 'jpg|png';
+			$config['max_size']      = 4048;
+			$this->load->library('upload', $config);
+			if (!$this->upload->do_upload('input-file-events')) {
+				#Aquí me refiero a "foto", el nombre que pusimos en FormData
+				$msg['success']= false;
+				$msg['error']= $this->upload->display_errors();
+			echo json_encode($msg);
+
+		} else {
+				$datos_img     = array('upload_data' => $this->upload->data());
+				$msg['imagen'] = $datos_img['upload_data']['file_name'];
+
+		}
+		echo json_encode($msg);
+
+	}
+
 }

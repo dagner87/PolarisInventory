@@ -31,7 +31,7 @@
                 <h4 class="modal-title" id="tituloLabel"></h4>
                 <button type="button" class="close cerrar" data-dismiss="modal"  aria-hidden="true">×</button>
             </div>
-          <form id="add_form" action="" method="POST">  
+          <form id="add_form" enctype="multipart/form-data"  method="POST">  
             <div class="modal-body">
                 <div class="alert alert-danger"  id="msg-error" style="display: none;"> 
                    <i class="ti-face-sad"></i> 
@@ -110,6 +110,19 @@
 														</div>
 												</div>
 												<!--/Estado-->
+
+												<div class="col-lg-6 col-md-6">
+													<div class="card">
+															<div class="card-body">
+																	<h4 class="card-title">Image of Product</h4>
+																	<label for="input-file-now-custom-1">You can add a default value</label>
+																	<input type="hidden" id="nombre_archivo" name="nombre_archivo" >
+																	<input type="file" id="input-file-events" class="dropify" data-default-file="assets/images/no-image.png" />
+															</div>
+													</div>
+                        </div>
+
+												
 												
 										</div>		
 										<div class="row">	
@@ -140,6 +153,9 @@
 
  <script src="<?= base_url() ?>plantilla/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
  <script src="<?= base_url() ?>plantilla/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>
+ 
+    <!-- jQuery file upload -->
+    <script src="plantilla/assets/plugins/dropify/dist/js/dropify.min.js"></script>
 
 
 
@@ -147,8 +163,63 @@
     $(document).ready(function() {
        load_tabla();
        $('.textarea_editor').wysihtml5();
+
+			 // Basic
+			 var drEvent =  $('.dropify').dropify();
+
+       console.log(drEvent);
+
+			  // Used events
+      
+        drEvent.on('dropify.fileReady', function(event, element){
+
+					var formData = new FormData(document.getElementById("add_form"));
+					console.log("este es el event",event);
+					// iniciar el ajax
+						/* $.ajax({
+							url: "upload_image" ,
+							// el metodo para enviar los datos es POST
+							type: "POST",
+							// colocamos la variable formData para el envio de la imagen
+							data: formData,
+							cache       : false,
+							contentType: false,
+							processData: false,
+							dataType    : 'JSON',
+							beforeSend: function(data)
+							{
+								console.log(data.responseText);
+						    
+							},
+							success: function(data)
+							{
+							
+								$('#nombre_archivo').val(data.imagen); //agrego el nombre del archivo subido
+							
+							},
+							error: function(err) { // if error occured			
+							
+								
+								console.log(err);
+									
+								},
+								complete: function() {
+									console.log("subio");	
+								},
+						}); */
+				});
+
+
        
     });
+
+
+
+
+
+		
+
+		
 
     $('#add_form').submit(function(e) {
       e.preventDefault();
@@ -246,13 +317,16 @@
     });
 
 		$(document).on("click",".cerrar",function(){
-      console.log('cancele el modal');
+      
 			$("#msg-error").hide();
 			$("#list_errorsA").empty();
       $('#camino').val();
       $('#tituloLabel').text(''); 
-      $("#add_form")[0].reset();       
+      $("#add_form")[0].reset();   
     });
+
+
+	
    
     
     /*----Editar  ----- */

@@ -42,6 +42,10 @@
 	  <link href="<?= base_url() ?>plantilla/assets/plugins/morrisjs/morris.css" rel="stylesheet" />
 
 
+	  
+	  <link rel="stylesheet" href="<?= base_url() ?>plantilla/assets/plugins/dropify/dist/css/dropify.min.css">
+
+
 
 	
 

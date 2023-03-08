@@ -6,6 +6,7 @@
         <table id="tbl_contenedora" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Avatar </th>
                     <th>Producto </th>
 											<th>Genero </th>
 											<th>Stock </th>									
