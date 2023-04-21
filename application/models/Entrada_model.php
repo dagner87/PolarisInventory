@@ -13,7 +13,9 @@ class Entrada_model extends CI_Model {
 
    public function getAll()
 	{
+		$data['year'] = date('Y');
 		$this->db->select("ent.*,prov.nombre_prove");
+		$this->db->where('YEAR(fecha)', $data['year']);
 		$this->db->join("proveedor prov","prov.id = ent.id_proveedor");	
 	    $resultados = $this->db->get("entrada ent");	
      return $resultados->result();
@@ -37,6 +39,7 @@ class Entrada_model extends CI_Model {
     {
      $this->db->where('id',$id);
      $query  = $this->db->get('entrada');
+	 
      return $query->row();
     }
 

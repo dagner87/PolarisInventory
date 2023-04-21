@@ -23,7 +23,7 @@
                         
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">Movimientos</span></a>
                             <ul aria-expanded="false" class="collapse">
-						     	<li><a href="<?= base_url() ?>ventas">Ventas</a></li>
+						     	<li><a href="<?= base_url() ?>ventas">Nueva Venta</a></li>
 						     	<li><a href="<?= base_url() ?>lista_ventas">Lista Ventas</a></li>
 								<li><a href="<?= base_url() ?>gastos">Gastos</a></li> 
                             </ul>

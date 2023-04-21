@@ -36,10 +36,7 @@ class Ventas extends CI_Controller {
 	   $data['productos']       = $this->producto_model->get_productosStock();
 	   $data['clientes']        = $this->cliente_model->get_clientes();
 	   $data['numero_correlativo']   = $this->ventas_model->getCorrelativo();
-					
 	   
-
-	 
 	   $this->load->view("layout/head",$data);
 	   $this->load->view("layout/menu");
 	   $this->load->view("ventas/v_addVenta",$data);
