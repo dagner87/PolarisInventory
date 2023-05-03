@@ -299,7 +299,7 @@ class Ventas_model extends CI_Model {
 
 
 	public function getDetalleVentas($id){
-		$this->db->select("dtv.*,p.nombre_producto");
+		$this->db->select("dtv.*,p.nombre_producto,p.genero");
 		$this->db->join("producto p","dtv.producto_id = p.id");
 		$this->db->where("dtv.venta_id",$id);
 		$resultados = $this->db->get('detalle_venta dtv');

@@ -179,6 +179,7 @@ class Ventas extends CI_Controller {
 			  
 				$output .='<tr>';
 				$output .='<td><a href="javascript:void(0)">'.$row->nombre_producto.'</a></td>';
+				$output .='<td>'.$row->genero.'</td>';
 				$output .='<td>'.$row->cantidad.'</td>';
 				$output .='<td>$'.$row->precio.'</td>';
 				$output .='<td>$'.$row->importe.'</td>';
@@ -187,6 +188,7 @@ class Ventas extends CI_Controller {
 			endforeach;
 			$output .='<tr style="color:black;font-weight:bold">';
 			$output .='<td>Total</td>';
+			$output .='<td></td>';
 			$output .='<td></td>';
 			$output .='<td></td>';
 			$output .='<td> $'.number_format($total,2,",",".").'</td>';

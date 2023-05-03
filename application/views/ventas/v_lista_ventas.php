@@ -39,6 +39,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nombre Producto</th>
+                                                <th>Genero</th>
                                                 <th>Cantidad</th>
                                                 <th>Precio</th>
                                                 <th>Importe</th>                                              
