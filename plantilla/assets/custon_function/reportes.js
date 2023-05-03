@@ -239,12 +239,31 @@ myChart.setOption(option, true), $(function() {
 			$.ajax({
 				url: "r_m_gender",
 				type:"get",
-				//data:{year: year},
 				dataType:"json",
 				success:function(data){
 
-					console.log("algo", data.keys[0]);
-					var meses = new Array();
+					
+					var  genero = [];
+					$.each(data,function(key, value){
+						
+                       genero.push(key);
+					  /*  option.series.map(function(dato){							
+						dato.name = genero;
+						
+						return dato;
+					}); */
+
+						
+
+
+					});
+
+					
+					console.log('option=>', option);
+
+
+					
+					/* var meses = new Array();
 					 //creo un array de 12 posiciones
 					var montos = new Array(12);
 					//relleno el array con ceros
@@ -265,7 +284,7 @@ myChart.setOption(option, true), $(function() {
 						dato.data = montos;
 						
 						return dato;
-					}); 
+					});  */
 
 					
 					
