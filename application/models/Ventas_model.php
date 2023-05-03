@@ -566,7 +566,7 @@ public function getProductos_stockAlmacen($id_almacen){
 	}
 
 	/**
-	SELECT p.genero,MONTH(v.fecha), SUM(cantidad) AS total_ventas
+	SELECT p.genero,MONTH(v.fecha), SUM(dv.importe) AS total_ventas
 	FROM ventas v
 	JOIN producto as p 
 	JOIN detalle_venta as dv 
@@ -577,11 +577,11 @@ public function getProductos_stockAlmacen($id_almacen){
 
 	public function montos_xgenero($genero){
 		$data['year'] = date('Y');
-		$this->db->select("MONTH(v.fecha) as mes, SUM(v.total) AS monto");
+		$this->db->select("MONTH(v.fecha) as mes, SUM(dv.importe) AS monto");
 		$this->db->from("detalle_venta dv");	
 		$this->db->join("ventas v","v.id = dv.venta_id ");	
 		$this->db->join("producto p","dv.producto_id = p.id");	
-		$this->db->where('YEAR(fecha)', $data['year']);	
+		$this->db->where('YEAR(v.fecha)', $data['year']);	
 		$this->db->where('v.estado', "exitosa");	
 		$this->db->where('p.genero', $genero);		
 		//$this->db->group_by("p.genero");
