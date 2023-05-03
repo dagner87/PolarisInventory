@@ -17,6 +17,7 @@ class Entrada_model extends CI_Model {
 		$this->db->select("ent.*,prov.nombre_prove");
 		$this->db->where('YEAR(fecha)', $data['year']);
 		$this->db->join("proveedor prov","prov.id = ent.id_proveedor");	
+		//$this->db->order_by("ent.fecha", "desc");
 	    $resultados = $this->db->get("entrada ent");	
      return $resultados->result();
 	}

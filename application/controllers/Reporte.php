@@ -55,6 +55,27 @@ class Reporte extends CI_Controller {
 
     }
 
+	public function reporte_mensualxgenero()
+	{  
+        $resp = array();
+		$temp = array();
+		/* TODO :  OBTENER LOS GENEROS LUEGO ITERAR PARA OBTJER LOS VALORES SEGUN EL GENERO */
+		$data  =   $this->reporte_model->generosProductos();
+		foreach ($data as $key => $value  ) {
+
+			
+			$resp[$value->name] =   $this->ventas_model->montos_xgenero($value->name);		
+			
+		}
+		//
+		echo json_encode($resp);
+	   
+	  
+
+	  
+
+    }
+
 	public function getData(){
 		$year = date('Y');
 		//$year = $this->input->post("year");

@@ -26,6 +26,18 @@ class Reporte_model extends CI_Model {
 	}
 
 
+	/**
+	 * SELECT genero FROM `producto` GROUP BY genero;
+	 */
+	public function generosProductos(){
+		$this->db->select('genero name');
+		$this->db->from('producto');
+		$this->db->group_by("genero");
+		$query = $this->db->get();		
+	  return $query->result();
+	}
+
+
 	/* SELECT p.nombre_producto, COUNT(dv.cantidad)
 	 FROM `detalle_venta` dv 
 	 JOIN producto p 

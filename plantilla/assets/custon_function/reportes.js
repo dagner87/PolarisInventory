@@ -1,5 +1,6 @@
 $(function () {
     "use strict";
+	mxgender();
 	console.log("cargando Reportes");
 
 	var ctx4 = document.getElementById("chart4").getContext("2d");	   
@@ -19,16 +20,21 @@ $(function () {
 			async: false,
 			dataType: 'json',
 			success: function(data){  
+				
 
 				for (var i in data['x_genero']) {
+
+					//console.log(data);
 					data4.push({
 						label: data['x_genero'][i].genero.toUpperCase(),
 						value: data['x_genero'][i].total,
 						color:bgColor[i].color,
 						highlight: bgColor[i].highlight,
 					});
-					//console.log(bgColor[i].color);
-				}		
+					
+				}
+				
+				
 							
 			},
 			error: function(){
@@ -53,6 +59,8 @@ $(function () {
 /** graficas de barras */
 
 datagrafico();
+
+
 
 
 });
@@ -103,7 +111,7 @@ function datagrafico(){
 				return dato;
 			  });
 			
-		 	console.log({meses,valor,montos});
+		 	//console.log({meses,valor,montos});
 			 
 			var chart2 = new Chart(ctx2).Bar(data2, {
 				scaleBeginAtZero : true,
@@ -129,6 +137,7 @@ function datagrafico(){
 var myChart = echarts.init(document.getElementById('bar-chart'));
 
 // specify chart configuration item and dataHombre
+mxgender();
 option = {
     tooltip : {
         trigger: 'axis'
@@ -222,5 +231,48 @@ myChart.setOption(option, true), $(function() {
         });
 
 
+  /** Grafica de ventas mensuales por genero */
+		
 
+		function mxgender(){
+			namesMonth= ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug","Sept","Oct","Nov","Dec"];
+			$.ajax({
+				url: "r_m_gender",
+				type:"get",
+				//data:{year: year},
+				dataType:"json",
+				success:function(data){
 
+					console.log("algo", data.keys[0]);
+					var meses = new Array();
+					 //creo un array de 12 posiciones
+					var montos = new Array(12);
+					//relleno el array con ceros
+					montos.fill(0,0);
+		
+					 $.each(data,function(key, value){
+						meses.push(namesMonth[value.mes - 1]);
+						valor = Number(value.monto);
+					   //reemplazo la posicion con la del mes y el valor
+						montos.splice(value.mes - 1, 1, valor);
+						
+						
+					}); 
+					
+					
+					
+					 option.series.map(function(dato){							
+						dato.data = montos;
+						
+						return dato;
+					}); 
+
+					
+					
+					
+					
+					 
+					
+				}
+			});
+		}

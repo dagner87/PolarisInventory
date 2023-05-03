@@ -519,10 +519,12 @@ public function getProductos_stockAlmacen($id_almacen){
 
 	public function getAll()
 	{
-	
+		$data['year'] = date('Y');
 		$this->db->select("v.id id,DATE_FORMAT(v.fecha,'%b,%d/%Y') as fecha, c.nombre_cliente, v.medio_pago, v.total, v.estado");
-		$this->db->join("cliente c","c.id = v.id_cliente");		
+		$this->db->join("cliente c","c.id = v.id_cliente");	
+		$this->db->where('YEAR(fecha)', $data['year']);	
 		$this->db->where("estado =",'exitosa');
+		$this->db->order_by("fecha", "desc");
 	   $resultados = $this->db->get("ventas v");	
      return $resultados->result();
 	}
@@ -563,14 +565,27 @@ public function getProductos_stockAlmacen($id_almacen){
 		return $resultados->result();
 	}
 
-	public function montos_consumo($year,$id_producto,$id_almacen){
-		$this->db->select("MONTH(fecha) as mes, SUM(cantidad_salida) as monto");
-		$this->db->from("movi_al_cli");
-		$this->db->where("fecha >=",$year."-01-01");
-		$this->db->where("fecha <=",$year."-12-31");
-		$this->db->where("id_producto",$id_producto);
-		$this->db->where("id_almacen",$id_almacen);
-		$this->db->group_by("mes");
+	/**
+	SELECT p.genero,MONTH(v.fecha), SUM(cantidad) AS total_ventas
+	FROM ventas v
+	JOIN producto as p 
+	JOIN detalle_venta as dv 
+	ON dv.producto_id = p.id 
+	WHERE YEAR(v.fecha) ='2023'
+	GROUP BY `p`.`genero`, MONTH(v.fecha);
+	 **/
+
+	public function montos_xgenero($genero){
+		$data['year'] = date('Y');
+		$this->db->select("MONTH(v.fecha) as mes, SUM(v.total) AS monto");
+		$this->db->from("detalle_venta dv");	
+		$this->db->join("ventas v","v.id = dv.venta_id ");	
+		$this->db->join("producto p","dv.producto_id = p.id");	
+		$this->db->where('YEAR(fecha)', $data['year']);	
+		$this->db->where('v.estado', "exitosa");	
+		$this->db->where('p.genero', $genero);		
+		//$this->db->group_by("p.genero");
+		$this->db->group_by(" MONTH(v.fecha)");
 		$this->db->order_by("mes");
 		$resultados = $this->db->get();
 		return $resultados->result();

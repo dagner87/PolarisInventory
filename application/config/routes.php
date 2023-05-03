@@ -99,6 +99,7 @@ $route['ventas_mensual']     = 'reporte/getData';
 $route['reportes']           = 'reporte/view_reportes';
 $route['r_more_sell']        = 'reporte/view_moreSell';
 $route['prod_more_sell']     = 'reporte/getMoreSell';
+$route['r_m_gender']     = 'reporte/reporte_mensualxgenero';
 
 
 
