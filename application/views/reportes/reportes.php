@@ -3,9 +3,11 @@
  <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">
-			<h4 class="card-title">Monthly Report</h4>
-			<div id="bar-chart" style="width:100%; height:400px;"></div>
+			<h4 class="card-title"></h4>
+			 <!-- Contenedor del gráfico -->
+			 <div id="chart-container" style="width:100%; height:400px;"></div>
 		</div>
+		
 	</div>
 </div>
 <!-- column -->
@@ -19,9 +21,9 @@
     
     <!-- ============================================================== -->
 	
-	<script src="<?php echo base_url();?>plantilla/assets/plugins/echarts/echarts-all.js"></script>
-    <script src="<?php echo base_url();?>plantilla/assets/custon_function/reportes.js"></script>
- <!--    <script src="<?php echo base_url();?>plantilla/assets/plugins/echarts/echarts-init.js"></script> -->
+	   <!-- Incluye la biblioteca ECharts -->
+	   <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="<?php echo base_url();?>plantilla/assets/custon_function/report_gender.js"></script>
     <!-- ============================================================== -->
 
 

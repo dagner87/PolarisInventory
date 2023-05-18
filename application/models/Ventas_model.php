@@ -584,7 +584,6 @@ public function getProductos_stockAlmacen($id_almacen){
 		$this->db->where('YEAR(v.fecha)', $data['year']);	
 		$this->db->where('v.estado', "exitosa");	
 		$this->db->where('p.genero', $genero);		
-		//$this->db->group_by("p.genero");
 		$this->db->group_by(" MONTH(v.fecha)");
 		$this->db->order_by("mes");
 		$resultados = $this->db->get();

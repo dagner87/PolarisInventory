@@ -1,8 +1,6 @@
 $(function () {
     "use strict";
-	mxgender();
-	console.log("cargando Reportes");
-
+	
 	var ctx4 = document.getElementById("chart4").getContext("2d");	   
     var data4 = [];
 
@@ -136,88 +134,7 @@ function datagrafico(){
 // ============================================================== 
 var myChart = echarts.init(document.getElementById('bar-chart'));
 
-// specify chart configuration item and dataHombre
-mxgender();
-option = {
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['Hombre','Mujer','Unisex']
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            
-            magicType : {show: true, type: ['line', 'bar']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    color: ["#55ce63", "#009efb","#8425BD"],
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            data : ['Jan','Feb','Mar','Apr','May','Jun','July','Aug','Sept','Oct','Nov','Dec']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'Hombre',
-            type:'bar',
-            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-            markPoint : {
-                data : [
-                    {type : 'max', name: 'Max'},
-                    {type : 'min', name: 'Min'}
-                ]
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name: 'Average'}
-                ]
-            }
-        },
-        {
-            name:'Mujer',
-            type:'bar',
-            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-            markPoint : {
-                data : [
-                    {name : 'The highest year', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-                    {name : 'Year minimum', value : 2.3, xAxis: 11, yAxis: 3}
-                ]
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name : 'Average'}
-                ]
-            }
-        },
-        {
-            name:'Unisex',
-            type:'bar',
-            data:[46,395,207,421,463,308,365,178,345,7],
-            markPoint : {
-                data : [
-                    {name : 'The highest year', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-                    {name : 'Year minimum', value : 2.3, xAxis: 11, yAxis: 3}
-                ]
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name : 'Average'}
-                ]
-            }
-        }
-    ]
-};
+
                     
 
 // use configuration item and data specified to show chart
@@ -234,64 +151,6 @@ myChart.setOption(option, true), $(function() {
   /** Grafica de ventas mensuales por genero */
 		
 
-		function mxgender(){
-			namesMonth= ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug","Sept","Oct","Nov","Dec"];
-			$.ajax({
-				url: "r_m_gender",
-				type:"get",
-				dataType:"json",
-				success:function(data){
-
-					
-					var  genero = [];
-					$.each(data,function(key, value){
-						
-                       genero.push(key);
-					  /*  option.series.map(function(dato){							
-						dato.name = genero;
-						
-						return dato;
-					}); */
-
-						
 
 
-					});
-
-					
-					console.log('option=>', option);
-
-
-					
-					/* var meses = new Array();
-					 //creo un array de 12 posiciones
-					var montos = new Array(12);
-					//relleno el array con ceros
-					montos.fill(0,0);
 		
-					 $.each(data,function(key, value){
-						meses.push(namesMonth[value.mes - 1]);
-						valor = Number(value.monto);
-					   //reemplazo la posicion con la del mes y el valor
-						montos.splice(value.mes - 1, 1, valor);
-						
-						
-					}); 
-					
-					
-					
-					 option.series.map(function(dato){							
-						dato.data = montos;
-						
-						return dato;
-					});  */
-
-					
-					
-					
-					
-					 
-					
-				}
-			});
-		}
