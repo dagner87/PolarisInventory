@@ -57,10 +57,6 @@ $(function () {
 /** graficas de barras */
 
 datagrafico();
-
-
-
-
 });
 
 

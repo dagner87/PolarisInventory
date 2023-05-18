@@ -45,6 +45,18 @@ class Reporte extends CI_Controller {
 	   $this->load->view("layout/footer");
     } 
 
+
+	public function prueba()
+	{
+	   $data['titulo']    = 'Productos Mas Vendidos';
+	   $data['crud']      = '';
+	   $data['camino']    = '';
+	   $this->load->view("layout/head",$data);
+	   $this->load->view("layout/menu");
+	   $this->load->view("reportes/prueba",$data);
+	   $this->load->view("layout/footer");
+    } 
+
 	
 	public function reportex_genero()
 	{
