@@ -10,25 +10,31 @@ $(function () {
 		3:"Mar",
 		4:"Apr",
 		5:"May",
-		/* 6:"Jun",
+	    6:"Jun",
 		7:"July",
 		8:"Aug",
 		9:"Sept",
 		10:"Oct",
 		11:"Nov",
-		12:"Dec" */
+		12:"Dec" 
       };
 
 	   // Función de devolución de llamada para manejar los datos obtenidos
 	   function handleData(jsonData) {
+		var currentDate = new Date();
+		var currentMonth = currentDate.getMonth() + 1; // Sumamos 1 porque los meses en JavaScript van de 0 a 11
+	  
+	  
 		// Parsea los datos del JSON
 		var chartData = Object.entries(jsonData).map(function([key, value]) {
 		  var data = [];
 		  for (var mes in meses) {
-			var monto = value.find(function(item) {
-			  return item.mes === mes;
-			});
-			data.push([meses[mes], monto ? monto.monto : 0]);
+			if (mes <= currentMonth) { // Filtrar los meses hasta el mes actual
+			  var monto = value.find(function(item) {
+				return item.mes === mes;
+			  });
+			  data.push([meses[mes], monto ? monto.monto : 0]);
+			}
 		  }
 		  return {
 			name: key,
@@ -93,6 +99,7 @@ $(function () {
 		xhttp.onreadystatechange = function() {
 		  if (this.readyState === 4 && this.status === 200) {
 			var jsonData = JSON.parse(this.responseText);
+			console.log(jsonData);
 			callback(jsonData);
 		  }
 		};
