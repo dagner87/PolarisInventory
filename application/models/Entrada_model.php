@@ -29,6 +29,7 @@ class Entrada_model extends CI_Model {
 		$this->db->join("producto p","stk.id_producto = p.id");
 		$this->db->where('stk.stock >',0);
 		$this->db->where('stk.estado','activo');
+	    $this->db->order_by("stk.stock", "desc");
 	    $resultados = $this->db->get("productos_stock stk");	
 	 
      return $resultados->result();
