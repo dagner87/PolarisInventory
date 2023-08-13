@@ -82,20 +82,21 @@
                 <!-- ============================================================== -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="<?= base_url() ?>">
-                        <!-- Logo icon -->
-                        <b>
+                      <!-- Logo icon -->
+					  <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            
+                            <!-- Dark Logo icon -->
+                            <img src="<?= base_url() ?>/plantilla/assets/images/logo-text.png" alt="Polaris" class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <img  src="<?= base_url() ?>plantilla/assets/images/logo-text.png
-							" 
-                            alt="homepage" class="light-logo" />
+                            <img src="<?= base_url() ?>/plantilla/assets/images/logo-light-icon.png" alt="Polaris" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
                          <!-- dark Logo text -->
-                         <img src="<?= base_url() ?>plantilla/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         <img src="<?= base_url() ?>/plantilla/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         <!-- Light Logo text -->    
+                         <img src="<?= base_url() ?>/plantilla/assets/images/logo-text.png" class="light-logo" alt="homepage" /></span> </a>
                          
                 </div>
                 <!-- ============================================================== -->
