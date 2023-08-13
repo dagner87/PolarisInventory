@@ -44,6 +44,20 @@ class Panel_admin extends CI_Controller {
     }
 
 
+
+	public function perfil()
+	{
+	   $data['crud'] = '';
+	   $data['titulo']   = 'Administrador';
+	  
+	   
+		$this->load->view("layout/head",$data);
+		$this->load->view("layout/menu",$data);
+		$this->load->view("perfil/perfil",$data);
+	   $this->load->view("layout/footer");
+    }
+
+
     function load_emp_a()
 	{
 	 

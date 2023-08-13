@@ -109,7 +109,7 @@ class Entradas extends CI_Controller {
 	        $output .= '<td><span class="round"><img src="assets/images/no-image.png" alt="avatar" width="50"></span></td>';
 	        $output .= '<td>'.$row->nombre_producto.'</td>';
 	        $output .= '<td>'.$row->genero.' </td>';
-	        $output .= '<td>'.$row->stock.' </td>';	        
+	        $output .= '<td ><input style="width: 77px;" type="number"  min="0" name="stock" value="'.$row->stock.'" > </td>';	        
 			if($row->estado == 'activo'){
 				$output .='<td><span class="label label-success">Activo</span></td>';
 			}else {

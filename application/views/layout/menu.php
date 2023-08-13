@@ -10,7 +10,9 @@
                     <div class="profile-img"> <img src="<?= base_url() ?>plantilla/assets/images/users/profile.png" alt="user" /> </div>
                     <!-- User profile text-->
                     <div class="profile-text"> <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><?= $this->session->userdata('nombre');?></a>
-                        <div class="dropdown-menu animated flipInY"> <a href="#" class="dropdown-item"><i class="ti-user"></i> My Profile</a> <a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
+                        <div class="dropdown-menu animated flipInY"> <a href="<?= base_url() ?>profile" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+
+						<a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
                             <div class="dropdown-divider"></div> <a href="<?= base_url() ?>salir" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a> </div>
                     </div>

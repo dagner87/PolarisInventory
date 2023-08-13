@@ -14,11 +14,13 @@ $route['translate_uri_dashes'] = true;
 $route['logusuario']        = "login/verificar";
 $route['salir']             = 'login/salir';
 
+
 /*----------------PANEL GENERAL --------------------*/
 $route['load_emp_a']   = 'panel_admin/load_emp_a';
 $route['load_emp_obj'] = 'panel_admin/load_emp_obj';
 $route['asoc_obj']     = 'panel_admin/asoc_obj';
 $route['get_obj_emp']  = 'panel_admin/get_obj_emp';
+$route['profile']      = 'panel_admin/perfil';
 
 
 /*---------------CRUD PRODUCTOS----------------------*/

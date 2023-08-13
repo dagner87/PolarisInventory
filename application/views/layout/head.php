@@ -155,7 +155,7 @@
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="javascript:void(0)"><i class="ti-user"></i> Mi Perfil</a></li>
+                                    <li><a href="<?= base_url() ?>profile" ><i class="ti-user"></i> Mi Perfil</a></li>
                                     <!--li><a href="#"><i class="ti-settings"></i> Configuración</a></li-->
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?= base_url() ?>salir"><i class="fa fa-power-off"></i> Salir</a></li>
