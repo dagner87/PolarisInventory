@@ -71,7 +71,10 @@ class Login extends CI_Controller
 						'is_logued_in' =>  TRUE,
 	                    'perfil'	   =>  $check_user->perfil,
 		                'nombre' 	   =>  $check_user->nombre,
-		                'apellidos'    =>  $check_user->apellidos
+		                'apellidos'    =>  $check_user->apellidos,
+		                'email'        =>  $check_user->email,
+		                'telefono'     =>  $check_user->telefono,
+
 		                );
 				
 					$this->session->set_userdata($data);

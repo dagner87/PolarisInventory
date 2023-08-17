@@ -110,15 +110,15 @@
                                         <div class="row">
                                             <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
                                                 <br>
-                                                <p class="text-muted">Johnathan Deo</p>
+                                                <p class="text-muted"><?= $this->session->userdata('nombre'); ?></p>
                                             </div>
                                             <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
                                                 <br>
-                                                <p class="text-muted">(123) 456 7890</p>
+                                                <p class="text-muted"><?= $this->session->userdata('telefono');?></p>
                                             </div>
                                             <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
                                                 <br>
-                                                <p class="text-muted">johnathan@admin.com</p>
+                                                <p class="text-muted"><?= $this->session->userdata('email');?></p>
                                             </div>
                                             <div class="col-md-3 col-xs-6"> <strong>Location</strong>
                                                 <br>
