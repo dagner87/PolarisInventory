@@ -56,6 +56,13 @@
               load_tabla();
               }
     } 
+
+    function updateStock(id)
+    {
+			var stocknum =  $("#stock-"+id).val();
+			console.log("capturo el id ="+stocknum);
+
+    } 
     function load_tabla()
     {
         $.ajax({
