@@ -8,18 +8,19 @@ $(function () {
 
 
 
-	 $(document).on("change",".stock", function(){
+	 $(document).on("click",".stock", function(){
 			 let stock = $(this).val();			
 			 let data  = $(this).attr("data-id");
 			 let  info = data.split("*");
 			 console.log(info);
 			 let id = info[0];	
 			  $('#tituloLabel').text('Producto : '+info[1]);
-			  $('#stock-id').val(id);			
-			// $("#cantidad").attr("max", stock);
+			  $('#stock-id').val(id);
+			  $("#stock_actual").html(info[2]);
+			   $("#cantidad").attr("max", stock);
+
 			 $('#stock_ajust').modal('show');
-			//console.log(stock);
-			//console.log(id);
+			
 		 });
 
 
@@ -51,7 +52,8 @@ $(function () {
 									hideAfter: 3500,
 									stack: 6
 								});
-								$('#stock_ajust').hide(); 
+								$('#stock_ajust').modal('hide'); 
+								refrescar_tbl();
 								 
 		
 							} else {
@@ -91,6 +93,8 @@ $(function () {
  
  function load_tabla()
  {
+	table = $('#tbl_contenedora').DataTable();
+	table.destroy();
 	 $.ajax({
 		 url:"lista_stocks",
 		 method:"post",

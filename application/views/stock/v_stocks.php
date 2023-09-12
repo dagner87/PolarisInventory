@@ -10,6 +10,7 @@
                     <th>Producto </th>
 											<th>Genero </th>
 											<th>Stock </th>									
+											<th>Ajuste </th>									
 											<th>Estado </th>
                                    
                 </tr>
@@ -49,8 +50,14 @@
 											<input type="hidden" value="" class="form-control"  name="id_stock" id="stock-id">
 									</div>
 									<div class="form-group">
+										<label   for="cantidad" class="control-label">Stock actual:  
+											<span  id="stock_actual" class="label label-info"> </span></label>										
+								</div>
+									<div class="form-group">
 										<label for="cantidad" class="control-label">Cantidad:</label>
-										<input type="number"  min="0" max="" class="form-control" id="cantidad" name="cantidad">
+										 <div class="range">
+											  <input type="number"  min="0" max="" step="1" class="form-control" id="cantidad" name="cantidad">
+											</div>
 								</div>
 									<div class="form-group">
 											<label for="motivo" class="control-label">Motivo:</label>

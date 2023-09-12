@@ -25,12 +25,16 @@ class Entrada_model extends CI_Model {
 
    public function getStocks()
 	{
+		
+		$this->db->select("p.nombre_producto,p.genero,stk.stock,stk.estado,stk.id");
 		$this->db->join("categoria c","stk.id_categoria = c.id");
 		$this->db->join("producto p","stk.id_producto = p.id");
 		$this->db->where('stk.stock >',0);
 		$this->db->where('stk.estado','activo');
 	    $this->db->order_by("stk.stock", "desc");
 	    $resultados = $this->db->get("productos_stock stk");	
+
+		//var_dump($resultados->result());
 	 
      return $resultados->result();
 	}
@@ -173,17 +177,27 @@ class Entrada_model extends CI_Model {
 		 */
       
 		 $data_insert = array( 
-			'id_stock' => $data['id_stock'],
+			'id_stock'    => $data['id_stock'],
 			'cantidad'    => $data["cantidad"],			
 			'motivo'      => $data["motivo"]
 		 );
      $this->db->insert("ajuste_stock",$data_insert);
-	 
-	 if($this->db->affected_rows() > 0){
-		return true;
-	   }else{
-			 return false;
-			}     
+
+
+	 // Restar la cantidad en la tabla productos_stock
+     $this->db->set('stock', 'stock - '.$data["cantidad"], FALSE);
+	 $this->db->where("id",$data['id_stock']);
+	 $this->db->update("productos_stock");
+       
+        // Finalizar la transacción
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            // Si la transacción falla, puedes manejar el error aquí
+            return false;
+        } else {
+            return true;
+        }   
 	}
 
 
