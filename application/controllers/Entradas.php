@@ -109,7 +109,8 @@ class Entradas extends CI_Controller {
 	        $output .= '<td><span class="round"><img src="assets/images/no-image.png" alt="avatar" width="50"></span></td>';
 	        $output .= '<td>'.$row->nombre_producto.'</td>';
 	        $output .= '<td>'.$row->genero.' </td>';
-	        $output .= '<td ><input style="width: 77px;" type="number" onchange="updateStock('.$row->id.')" min="0" class="stock-'.$row->id.' " value="'.$row->stock.'" > </td>';	        
+	        $output .= '<td ><input style="width: 77px;" type="number"  min="0" max="'.$row->stock.'" 
+			            data-id="'.$row->id.'*'.$row->nombre_producto.'" class="stock" value="'.$row->stock.'" > </td>';	        
 			if($row->estado == 'activo'){
 				$output .='<td><span class="label label-success">Activo</span></td>';
 			}else {
@@ -278,6 +279,28 @@ class Entradas extends CI_Controller {
 	      }     
 
 	}
+
+   /** AJUSTE DE STOCK */
+	public function ajuste_stock()
+    {
+        if($this->input->is_ajax_request()) 
+        {
+			$param['id_stock']  = $this->input->post('id_stock');
+			$param['cantidad']  = $this->input->post('cantidad');
+			$param['motivo']    = $this->input->post('motivo');
+			$result             = $this->entrada_model->ajuste_stock($param);
+			$msg['comprobador']      = FALSE;
+
+			if($result)
+					{
+					$msg['comprobador'] = TRUE;
+					}
+				echo json_encode($msg);
+		}
+
+		
+		      
+    }
 
 
 	/* Eliminar */

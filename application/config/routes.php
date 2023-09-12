@@ -82,6 +82,7 @@ $route['delete_entrada'] = 'entradas/delete';
 
 $route['stock']        = 'entradas/stock';
 $route['lista_stocks'] = 'entradas/getStocks';
+$route['update_stock'] = 'entradas/ajuste_stock';
 
 /*--------------------Ventas --------------*/
 

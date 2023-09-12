@@ -163,6 +163,29 @@ class Entrada_model extends CI_Model {
 		
 	}
 
+	public function ajuste_stock($data){
+
+		//var_dump($data);
+
+		//TODO
+		/** Insertar en la tabla de ajuste_stock
+		 *  actualizar la cantidad de stock
+		 */
+      
+		 $data_insert = array( 
+			'id_stock' => $data['id_stock'],
+			'cantidad'    => $data["cantidad"],			
+			'motivo'      => $data["motivo"]
+		 );
+     $this->db->insert("ajuste_stock",$data_insert);
+	 
+	 if($this->db->affected_rows() > 0){
+		return true;
+	   }else{
+			 return false;
+			}     
+	}
+
 
 	
 }

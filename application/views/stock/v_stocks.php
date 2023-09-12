@@ -28,71 +28,52 @@
     <!-- /.modal-dialog -->
 </div>
 
+ <!-- sample modal content -->
+ <div id="stock_ajust" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+				<div class="modal-content">
+						<div class="modal-header">
+								<h4 class="modal-title" id="tituloLabel">  </h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						</div>
+						<div class="modal-body">
+								<h4>Describa el motivo del ajuste de STOCK</h4>
+								<br>
+								
+								<div class="alert alert-warning">
+								<i class="fa fa-exclamation-triangle"></i>
+								Cuando hace una ajuste de stock debe argumentar el motivo por el cual está haciendo dicho ajuste. Por favor describa el motivo en el siguiente Input text</div>
+								
+								<form id="stock_form">
+									<div class="form-group">										
+											<input type="hidden" value="" class="form-control"  name="id_stock" id="stock-id">
+									</div>
+									<div class="form-group">
+										<label for="cantidad" class="control-label">Cantidad:</label>
+										<input type="number"  min="0" max="" class="form-control" id="cantidad" name="cantidad">
+								</div>
+									<div class="form-group">
+											<label for="motivo" class="control-label">Motivo:</label>
+											<textarea class="form-control" name="motivo" ></textarea>
+									</div>
+							
+						</div>
+						
+						<div class="modal-footer">
+							 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-danger waves-effect waves-light">Save changes</button>
+						</div>
+						</form>
+				</div>
+				<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 
  <script src="<?= base_url() ?>plantilla/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
  <script src="<?= base_url() ?>plantilla/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>
+ <script src="<?= base_url();?>plantilla/assets/custon_function/stock.js"></script>
 
 
-
-  <script>
-    $(document).ready(function() {
-       load_tabla();
-       $('.textarea_editor').wysihtml5();
-       
-    });
-    
- 
-
-
-    function refrescar_tbl()
-    {
-       if ($.fn.DataTable.isDataTable('#tbl_contenedora')) {
-          table = $('#tbl_contenedora').DataTable();
-          table.destroy();
-          console.log("estoy dentro el if");
-          load_tabla();
-          } else {
-               console.log("estoy en el else");
-              load_tabla();
-              }
-    } 
-
-    function updateStock(id)
-    {
-			var stocknum =  $("#stock-"+id).val();
-			console.log("capturo el id ="+stocknum);
-
-    } 
-    function load_tabla()
-    {
-        $.ajax({
-            url:"<?php echo base_url(); ?>lista_stocks",
-            method:"post",
-            success:function(data)
-            {
-             $('#contenido_tbl').html(data);
-               var table = $('#tbl_contenedora').DataTable({
-                 responsive: true,
-                 language: {
-                              "lengthMenu": "Mostrar _MENU_ registros por pagina",
-                              "zeroRecords": "No se encontraron resultados en su busqueda",
-                              "searchPlaceholder": "Buscar registros",
-                              "info": "Mostrando  _START_ al _END_ de un total de  _TOTAL_ registros",
-                              "infoEmpty": "No existen registros",
-                              "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                              "search": "Buscar:",
-                              "paginate": {
-                                            "first": "Primero",
-                                            "last": "Último",
-                                            "next": "Siguiente",
-                                            "previous": "Anterior"
-                                          },
-                    }
-               });
-             
-            }
-        })
-    }
-
-
-</script>
